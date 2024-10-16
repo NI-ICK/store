@@ -1,0 +1,178 @@
+@use '../abstracts' as *;
+
+.backdrop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, 0.3);
+
+    input {
+        width: 80%; 
+        height: 2.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background-color: $light-grey;
+    }
+
+    button {
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        margin-top: 2rem;
+        margin-bottom: 15rem;
+        background-color: $light-blue;
+        color: white;
+
+        &:hover, &:focus {
+            background-color: $blue;
+        }
+    }
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 2.5rem;
+    min-width: 30rem;
+    background-color: $light-grey;
+    border-radius: 0.5rem;
+    
+    @include sm { min-width: 5rem; }
+    @include xs { display: none; }
+
+    
+    & + span {
+        display: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+
+        @include xs { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;  
+        }
+
+        &:hover, &:focus {
+            background-color: $light-grey;
+
+            svg {
+                fill: $blue;
+            }
+        }
+
+        svg {
+            fill: black;
+        }
+    }
+
+    input {
+        flex: 1;
+        height: 100%;
+        border: none;
+        padding: 1rem;
+        background-color: transparent;
+    }
+}
+
+.searchIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 2.5rem;
+    background-color: $light-blue;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        background-color: $blue;
+    }
+}
+
+.dropdownBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-left: 0.8rem;
+    border-radius: 0.5rem;
+    font-size: .8rem;
+    height: 2rem;
+    width: fit-content;
+    cursor: pointer;
+    margin-right: 0.5rem;
+
+    @include sm { display: none; }
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    p {
+        white-space: nowrap;
+    }
+
+    &:hover, &:focus {
+        background-color: $grey;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        background-color: $grey;
+        left: -0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0.1rem;
+        height: 1.5rem;
+    }
+}
+
+.arrow {
+    border: solid $dark-grey;
+    border-width: 0 0.2rem 0.2rem 0;
+    display: inline-block;
+    padding: 0.2rem;
+    transform: rotate(45deg);
+    margin-left: 0.5rem;
+}
+
+.dropdownMenu {
+    position: absolute;
+    border: 0.1rem solid $grey;
+    background-color: white;
+    border-radius: 0.5rem;
+    top: 100%;
+    right: 5%;
+    width: 8rem;
+    height: 15rem;
+    overflow-y: scroll;
+    margin-top: 0.1rem;
+
+    p {
+        cursor: pointer;
+        border-radius: 0.5rem;
+        padding: 0.4rem;
+        margin: 0.2rem;
+        font-size: 0.7rem;
+
+        &:hover {
+            background-color: $light-grey;
+        }
+    }
+}

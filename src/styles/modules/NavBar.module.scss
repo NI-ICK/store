@@ -1,0 +1,60 @@
+@use '../abstracts' as *;
+
+.navBar {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1rem;
+    box-shadow: 0 0.2rem 0.2rem $grey; 
+    background-color: white;
+
+    @include xs { justify-content: center; gap:0.5rem }
+} 
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        width: fit-content;
+        text-decoration: none;
+    
+        &:visited, &:link {
+            color: black;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;    
+            border-radius: 0.5rem;
+        }
+
+        &:hover, &:focus {
+            background-color: $light-grey;
+
+            svg {
+                fill: $blue;
+            }
+        }
+
+        p {
+            padding-right: 1rem;
+            @include md { display: none; }
+        }
+    }
+}
