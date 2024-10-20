@@ -11,6 +11,17 @@ export const fetchAllProducts = async () => {
     }
 }
 
+export const fetchSingleProduct = async (id: number) => {
+    try {
+        const response = await axios.get(`https://dummyjson.com/products/${id}`)
+        return response.data
+    } catch(error) {
+        let message = "Unknown Error"
+        if(error instanceof Error) message = error.message
+        console.log("Error fetching product: ", message)
+    }
+}
+
 export const fetchProductsByCategory = async (category: string) => {
     try {
         const response = await axios.get(`https://dummyjson.com/products/category/${category}`)

@@ -49,6 +49,14 @@
     @include sm { min-width: 5rem; }
     @include xs { display: none; }
 
+    &:focus-within {
+        box-shadow: 0 0 0.5rem $grey;
+        background-color: white;
+
+        .dropdownBtn:hover, .dropdownBtn:focus {
+            background-color: $light-grey;
+        }
+    }
     
     & + span {
         display: none;
@@ -94,9 +102,17 @@
     background-color: $light-blue;
     border-radius: 0.5rem;
     cursor: pointer;
+    
+    svg {
+        fill: black;
+    }
 
     &:hover, &:focus {
         background-color: $blue;
+        
+        svg {
+            fill: white;
+        }
     }
 }
 

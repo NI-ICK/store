@@ -3,8 +3,7 @@
 .navBar {
     position: fixed;
     z-index: 1000;
-    left: 0;
-    right: 0;
+    width: 100%;
     top: 0;
     display: flex;
     align-items: center;
@@ -13,7 +12,7 @@
     box-shadow: 0 0.2rem 0.2rem $grey; 
     background-color: white;
 
-    @include xs { justify-content: center; gap:0.5rem }
+    @include xs { justify-content: center; gap:2rem }
 } 
 
 .links {
@@ -22,6 +21,8 @@
     justify-content: center;
     gap: 0.5rem;
 
+    @include xs { gap: 2rem; }
+
     a {
         display: flex;
         align-items: center;
@@ -29,11 +30,6 @@
         border-radius: 0.5rem;
         cursor: pointer;
         width: fit-content;
-        text-decoration: none;
-    
-        &:visited, &:link {
-            color: black;
-        }
 
         span {
             display: flex;

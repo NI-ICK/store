@@ -1,4 +1,4 @@
-export function ArrowIcon(props: { params?: React.SVGProps<SVGSVGElement> }) {
+export function ArrowIcon({ rotate }: { rotate?: number } ) {
     return (
       <svg
         width="1.5rem"
@@ -7,7 +7,7 @@ export function ArrowIcon(props: { params?: React.SVGProps<SVGSVGElement> }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         stroke="#000"
-        {...props}
+        transform={`rotate(${rotate ? rotate : ''})`}
       >
         <path
           d="M7 10l5 5 5-5"

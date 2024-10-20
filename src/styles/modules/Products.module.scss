@@ -1,9 +1,145 @@
 @use '../abstracts' as *;
 
-.filters {
-    width: 25rem;
-    padding: 1rem;
+.mainContainer {
+    display: flex;
+    width: 100%;
     margin-top: 5rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-left: 27rem;
+    height: 100%;
+    flex: 1;
+
+    .qResult {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 1rem;
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            margin-left: 0.5rem;
+            background-color: $light-grey;
+
+            &:hover, &:focus {
+                background-color: $grey;
+            }
+        }
+    }
+}
+
+.products {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 20rem);
+    grid-auto-rows: 20rem;
+    gap: 1.5rem;
+}    
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        box-shadow: 0 0 1rem $grey;
+        border: 0.15rem solid $light-grey;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .price {
+        color: $grey;
+        text-decoration: line-through;
+        text-decoration-thickness: 0.15rem;
+    }
+
+    .discountedPrice {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    img {
+        max-width: 12rem;
+        object-fit: cover;
+
+        & + p {
+            margin: 0.5rem;
+        }
+    }
+
+    span:first-of-type {
+        display: flex;
+        align-items: center;    
+        justify-content: center;        
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        background-color: $light-grey;
+        cursor: pointer;
+
+        &:hover, &:focus {
+            background-color: $grey;
+
+            svg {
+                fill: $blue;
+            }
+        }
+    }
+
+    span:last-child {
+        display: flex;
+        align-items: center;    
+        justify-content: center;        
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        background-color: $light-blue;
+        cursor: pointer;
+
+        &:hover, &:focus {
+            background-color: $blue;
+        }
+    }
+}
+
+.info {
+    position: absolute;
+    margin-top: 15rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+}
+
+// Filter
+
+.filters {
+    position: fixed;
+    z-index: 1000;
+    background-color: white;
+    width: 25rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
 
     @include xs { width: 100%; }
 
@@ -49,7 +185,7 @@
     }
 }
 
-.price {
+.priceFilter {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -105,7 +241,7 @@
     }
 }
 
-.categories {
+.categoriesFilter {
     display: flex;
     flex-wrap: wrap;
     margin-top: 1rem;

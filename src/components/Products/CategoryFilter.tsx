@@ -7,7 +7,7 @@ export function CategoryFilter({ categoryList, qCategory }: { categoryList: stri
     const [ selectedCategory, setSelectedCategory ] = useState(qCategory)
 
     return <>
-        <div className={styles.categories}>
+        <div className={styles.categoriesFilter}>
             <p>Categories</p>
             {categoryList && categoryList.map((category, index) => (
                 <label 
