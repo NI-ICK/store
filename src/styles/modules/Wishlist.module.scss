@@ -1,0 +1,126 @@
+@use '../abstracts' as *;
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    background-color: $light-grey;
+}
+
+.wishlist {
+    position: relative;
+    margin-top: 8rem;
+    margin-bottom: 3rem;
+    width: min(75rem, 90%);
+    height: 42rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    .items {
+        overflow-y: scroll;
+        height: 100%;
+    }
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 0.15rem solid $light-grey;
+    margin: 2rem;
+
+    @include sm { gap: 1rem; }
+
+    &:hover {
+        box-shadow: 0 0 1rem $grey;
+    }
+
+    & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 1rem;
+
+        @include sm { flex-direction: column; }
+    }
+
+    .details {
+        width: 100%;
+
+        @include sm { text-align: center; }
+
+        p {
+            font-weight: bold;
+            color: $blue;
+        }
+
+        h3 {
+
+            @include md { font-size: 1rem; }
+            @include sm { font-size: 0.8rem; }
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin-left: auto;
+        margin-right: 2rem;
+
+        @include sm { margin: 0; }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        button:first-child {
+            background-color: $light-blue;
+
+            &:hover, &:focus-visible {
+                background-color: $blue;
+                
+                svg {
+                    fill: white;
+                }
+            }
+        }
+
+        button:last-child {
+            background-color: $light-grey;
+
+            &:hover, &:focus-visible {
+                background-color: $grey;
+                
+                svg {
+                    fill: $red;
+                }
+            }
+        }
+    }
+
+    img {
+        width: 7rem;
+        height: 7rem;
+    }
+}

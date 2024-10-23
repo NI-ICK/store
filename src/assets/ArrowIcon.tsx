@@ -7,7 +7,7 @@ export function ArrowIcon({ rotate }: { rotate?: number } ) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         stroke="#000"
-        transform={`rotate(${rotate ? rotate : ''})`}
+        transform={`rotate(${rotate ? rotate : 0})`}
       >
         <path
           d="M7 10l5 5 5-5"

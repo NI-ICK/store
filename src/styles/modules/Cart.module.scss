@@ -1,0 +1,162 @@
+@use '../abstracts' as *;
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    background-color: $light-grey;
+}
+
+.cart {
+    position: relative;
+    margin-top: 8rem;
+    margin-bottom: 3rem;
+    width: min(75rem, 90%);
+    height: 42rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+
+    .cartItems {
+        overflow-y: scroll;
+        height: calc(100% - 5rem);
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 0;
+        border-top: 0.15rem solid $light-grey;
+        width: 100%;
+        height: 5rem;
+        padding: 2rem;
+        background-color: white;
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+
+        p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: $blue;
+        }
+
+        button {
+            background-color: $light-blue;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            &:hover, &:focus-visible {
+                background-color: $blue;
+            }
+        }
+    }
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 0.15rem solid $light-grey;
+    margin: 2.1rem;
+
+    @include sm { gap: 1rem; }
+
+    &:hover {
+        box-shadow: 0 0 1rem $grey;
+    }
+
+    & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 1rem;
+
+        @include sm { flex-direction: column; }
+    }
+
+    .details {
+        width: 100%;
+
+        @include sm { text-align: center; }
+
+        p {
+            font-weight: bold;
+            color: $blue;
+        }
+
+        h3 {
+
+            @include md { font-size: 1rem; }
+            @include sm { font-size: 0.8rem; }
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin-left: auto;
+        margin-right: 2rem;
+
+        @include sm { margin: 0; }
+
+        input {
+            text-align: center;
+            appearance: none;        
+            -moz-appearance: textfield;    
+            border: none;
+            background-color: $light-grey;
+            border-radius: 0.5rem;
+            padding: 0.3rem;
+            width: 2.5rem;
+            height: 2rem;
+
+            &::-webkit-inner-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;         
+            }
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            padding: 0.5rem;
+            background-color: $light-grey;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            &:hover, &:focus-visible {
+                background-color: $grey;
+                
+                svg {
+                    fill: $red;
+                }
+            }
+        }
+    }
+
+    img {
+        width: 7rem;
+        height: 7rem;
+    }
+}

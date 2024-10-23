@@ -11,7 +11,7 @@ export async function filterProducts( formData: FormData ) {
     
     if(query) queryParams.push(`q=${encodeURIComponent(query)}`)
     if(category) queryParams.push(`c=${encodeURIComponent(category)}`)
-    if(price !== '0-0') queryParams.push(`p=${encodeURIComponent(price)}`)
+    if(price !== '0-0') queryParams.push(`pr=${encodeURIComponent(price)}`)
 
     const searchParams = queryParams.length ? '?' + queryParams.join('&') : ''
     redirect(`/products${searchParams}`)

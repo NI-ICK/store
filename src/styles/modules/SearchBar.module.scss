@@ -30,7 +30,7 @@
         background-color: $light-blue;
         color: white;
 
-        &:hover, &:focus {
+        &:hover, &:focus-visible {
             background-color: $blue;
         }
     }
@@ -49,7 +49,7 @@
     @include sm { min-width: 5rem; }
     @include xs { display: none; }
 
-    &:focus-within {
+    &:focus-visible-within {
         box-shadow: 0 0 0.5rem $grey;
         background-color: white;
 
@@ -71,7 +71,7 @@
             height: 2.5rem;  
         }
 
-        &:hover, &:focus {
+        &:hover, &:focus-visible {
             background-color: $light-grey;
 
             svg {
@@ -107,7 +107,7 @@
         fill: black;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus-visible {
         background-color: $blue;
         
         svg {
@@ -143,7 +143,7 @@
         white-space: nowrap;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus-visible {
         background-color: $grey;
     }
 

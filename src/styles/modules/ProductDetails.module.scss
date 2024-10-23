@@ -118,7 +118,7 @@
         cursor: pointer;
         border-radius: 0.5rem;
 
-        &:hover, &:focus {
+        &:hover, &:focus-visible {
             background-color: $grey;
             
             svg {
@@ -214,6 +214,7 @@
     }
 
     .discountedPrice {
+        color: $blue;
         font-size: 1.2rem;
         font-weight: bold;
     }
@@ -249,9 +250,21 @@
         .wishlistBtn {
             border: 0.15em solid $light-grey;
 
-            &:hover, &:focus {
+            &:hover, &:focus-visible {
                 background-color: $light-grey;
 
+                svg {
+                    fill: $blue;
+                }
+            }       
+            
+            &:hover:has(.remove), &:focus-visible:has(.remove) {
+                svg {
+                    fill: $red;
+                }
+            }
+
+            .remove {
                 svg {
                     fill: $blue;
                 }
@@ -261,7 +274,7 @@
         .cartBtn {
             background-color: $light-blue;
 
-            &:hover, &:focus {
+            &:hover, &:focus-visible {
                 background-color: $blue;
                 color: white;
     
@@ -321,6 +334,7 @@
         }
 
         span:last-child {
+            color: $blue;
             font-weight: bold;
         }
     }
@@ -337,7 +351,7 @@
         border-radius: 0.5rem;
         cursor: pointer;
 
-        &:hover, &:focus {
+        &:hover, &:focus-visible {
             box-shadow: 0 0 1rem $grey;
         }
 

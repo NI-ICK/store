@@ -3,6 +3,7 @@
 import styles from '@/styles/modules/ProductDetails.module.scss'
 import { ArrowIcon } from "@/assets/ArrowIcon"
 import { useState } from 'react'
+import Image from 'next/image'
 
 export function ImageSlider({ product }: { product: Product }) {
     const [ imageIndex, setImageIndex ] = useState(0)
@@ -29,7 +30,7 @@ export function ImageSlider({ product }: { product: Product }) {
                     transform: `translateX(${-100 * imageIndex}%)`,
                     opacity: index === imageIndex ? 1 : 0
                 }}>
-                    <img src={image} alt={product.title} key={index} loading='lazy' draggable={false} />
+                    <Image src={image} alt={product.title} key={index} draggable={false} width={480} height={480}/>
                 </div>
             ))}
             <button className={styles.prev} style={{ display: product.images.length > 1 ? 'flex' : 'none'}} onClick={() => handlePrevImage()}><ArrowIcon rotate={90}/></button>

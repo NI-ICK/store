@@ -1,10 +1,10 @@
 import styles from '@/styles/modules/ProductDetails.module.scss'
-import { CartIcon } from '@/assets/CartIcon'
-import { WishlistIcon } from '@/assets/WishlistIcon'
 import { fetchProductsByCategory, fetchSingleProduct } from '@/utils/FetchData'
 import { StarIcon } from '@/assets/StarIcon'
 import Link from 'next/link'
-import { ImageSlider } from '@/components/Products/ImageSlider'
+import { ImageSlider } from '@/app/products/[id]/_components/ImageSlider'
+import { Buttons } from './_components/Buttons'
+import Image from 'next/image'
 
 export default async function Product({ params }: { params: { id: number }}) {
     const product: Product = await fetchSingleProduct(params.id)
@@ -67,23 +67,7 @@ export default async function Product({ params }: { params: { id: number }}) {
                             <p className={styles.price}>{'$ ' + product.price}</p>
                             <p className={styles.discountedPrice}>{handleProductPrice(product)}</p>
                         </div>
-                        <div className={styles.buttons}>
-                            <div tabIndex={0} className={styles.wishlistBtn}>
-                                <span>
-                                    <WishlistIcon />
-                                </span>
-                                <p>Add to Wishlist</p>
-                            </div>
-                            <div className={styles.wrapper}>
-                                <div tabIndex={0} className={styles.cartBtn}>
-                                    <span>
-                                        <CartIcon />
-                                    </span>
-                                    <p>Add to Cart</p>
-                                </div>
-                                <p className={styles.stock}>In stock: {product.stock}</p>
-                            </div>
-                        </div>
+                        <Buttons product={product}/>
                     </div>
                 </div>
             </div>
@@ -93,7 +77,7 @@ export default async function Product({ params }: { params: { id: number }}) {
                 <div className={styles.productList}>
                     {moreProducts.filter(p => p.id !== product.id).slice(0, 10).map((p, index) => (
                         <Link href={`/products/${p.id}`} key={index} className={styles.similarProduct}>
-                            <img src={p.thumbnail} alt={p.title} />
+                            <Image src={p.thumbnail} alt={p.title} width={160} height={160}/>
                             <p>{handleProductTitle(p.title)}</p>
                             <p><span>{'$ ' + p.price}</span><span>{handleProductPrice(p)}</span></p>
                         </Link>
@@ -105,7 +89,7 @@ export default async function Product({ params }: { params: { id: number }}) {
                 <h2>Reviews</h2>
                 {product.reviews.map((review, index) => (
                     <div className={styles.review} key={index}>
-                        <img src="/profileImg.webp" alt={review.reviewerName} />
+                        <Image src="/profileImg.webp" alt={review.reviewerName} width={40} height={40}/>
                         <div className={styles.content}>
                             <p>{review.reviewerName}</p>
                             {handleReviewRating(review.rating)}

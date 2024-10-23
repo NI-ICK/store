@@ -1,9 +1,8 @@
 import axios from "axios"
 
-export const fetchAllProducts = async () => {
+export const fetchAllProducts = async (page: number) => {
     try {
-        const response = await axios.get('https://dummyjson.com/products')
-        return response.data.products
+        return await axios.get(`https://dummyjson.com/products?skip=${page * 30}`)
     } catch(error) {
         let message = "Unknown Error"
         if(error instanceof Error) message = error.message
@@ -22,10 +21,9 @@ export const fetchSingleProduct = async (id: number) => {
     }
 }
 
-export const fetchProductsByCategory = async (category: string) => {
+export const fetchProductsByCategory = async (category: string, page: number) => {
     try {
-        const response = await axios.get(`https://dummyjson.com/products/category/${category}`)
-        return response.data.products
+        return await axios.get(`https://dummyjson.com/products/category/${category}?skip=${page * 30}`)
     } catch(error) {
         let message = "Unknown Error"
         if(error instanceof Error) message = error.message
@@ -33,10 +31,9 @@ export const fetchProductsByCategory = async (category: string) => {
     }
 }
 
-export const fetchProductsByQuery = async (query: string) => {
+export const fetchProductsByQuery = async (query: string, page: number) => {
     try {
-        const response = await axios.get(`https://dummyjson.com/products/search?q=${query}`)
-        return response.data.products
+        return await axios.get(`https://dummyjson.com/products/search?q=${query}&skip=${page * 30}`)
     } catch(error) {
         let message = "Unknown Error"
         if(error instanceof Error) message = error.message

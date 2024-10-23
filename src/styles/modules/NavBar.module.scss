@@ -40,7 +40,7 @@
             border-radius: 0.5rem;
         }
 
-        &:hover, &:focus {
+        &:hover, &:focus-visible {
             background-color: $light-grey;
 
             svg {
