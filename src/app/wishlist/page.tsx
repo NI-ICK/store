@@ -2,16 +2,16 @@
 
 import { CartIcon } from '@/assets/CartIcon'
 import { XIcon } from '@/assets/XIcon'
-import { useCart } from '@/store/useCart'
-import { useWishlist } from '@/store/useWishlist'
+import { useCartStore } from '@/store/useCartStore'
+import { useWishlistStore } from '@/store/useWishlistStore'
 import styles from '@/styles/modules/Wishlist.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Wishlist() {
-    const wishlistItems = useWishlist(state => state.wishlistItems)
-    const removeWishlistItem = useWishlist(state => state.removeWishlistItem)
-    const addCartItem = useCart(state => state.addCartItem)
+    const wishlistItems = useWishlistStore(state => state.wishlistItems)
+    const removeWishlistItem = useWishlistStore(state => state.removeWishlistItem)
+    const addCartItem = useCartStore(state => state.addCartItem)
     
     const handleProductPrice = (product: Product) => {
         return '$ ' + (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
@@ -24,7 +24,7 @@ export default function Wishlist() {
                 {wishlistItems.map((item, index) => {
                     return (
                     <div key={index} className={styles.product}>
-                        <Link href={`/products/${item.id}`}><Image src={item.thumbnail} alt={item.title} width={112} height={112}/></Link>
+                        <Link href={`/products/${item.id}`} tabIndex={-1}><Image src={item.thumbnail} alt={item.title} width={112} height={112}/></Link>
                         <div>
                             <div className={styles.details}>
                                 <Link href={`/products/${item.id}`}><h3>{item.title}</h3></Link>

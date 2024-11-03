@@ -1,0 +1,89 @@
+@use '../abstracts' as *;
+
+.background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    min-height: 100%;
+    height: fit-content;
+    background-color: $light-grey;
+}
+
+.policy {
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    width: min(75rem, 90%);
+    min-height: 42rem;
+    box-shadow: 0 0 1rem $grey;
+    padding: 2rem;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: $light-blue;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+}
+
+.notFound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 0.5rem;
+    width: min(32rem, 90%);
+    height: 20rem;
+    box-shadow: 0 0 1rem $grey;
+
+    h2 {
+        font-size: 5rem;
+    }
+
+    p {
+        font-size: 2rem;
+    }
+
+    a {
+        background-color: $light-grey;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        margin-top: 2rem;
+
+        &:hover, &:focus-visible {
+            background-color: $light-blue;
+            color: white;
+        }
+    }
+}
+
+.popup {
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%) translateY(5rem);
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 0.15rem solid $light-grey;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $light-blue;
+    animation: slide-in-out 6s ease-in-out forwards;
+}
+
+@keyframes slide-in-out {
+    0% { transform: translateY(15rem) translateX(-50%); }
+    25% { transform: translateY(-5rem) translateX(-50%); }
+    75% { transform: translateY(-5rem) translateX(-50%); }
+    100% { transform: translateY(15rem) translateX(-50%); }
+}

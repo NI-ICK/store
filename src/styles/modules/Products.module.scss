@@ -32,6 +32,10 @@
 
             &:hover, &:focus-visible {
                 background-color: $grey;
+
+                svg {
+                    fill: $red;
+                }
             }
         }
     }
@@ -163,6 +167,10 @@
 
         &:hover, &:focus-visible {
             background-color: $blue;
+            
+            svg {
+                fill: white;
+            }
         }
     }
 }
@@ -179,7 +187,7 @@
 
 .filters {
     position: fixed;
-    z-index: 1000;
+    z-index: 500;
     background-color: white;
     width: 25rem;
     margin: 1rem;
@@ -200,6 +208,7 @@
     }
 
     p {
+        color: $light-blue;
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
@@ -208,6 +217,7 @@
 .header {
     display: flex;
     justify-content: space-between;
+    color: $light-blue;
 
     button {
         display: flex;
@@ -220,7 +230,11 @@
         cursor: pointer;
         
         &:hover, &:focus-visible {
-            background-color: $grey;
+            background-color: $light-blue;
+
+            svg {
+                fill: white;
+            }
         }
 
         svg {
@@ -291,15 +305,43 @@
     margin-top: 1rem;
     width: 100%;
 
+    .customRadio {
+        position: relative;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        border: 0.15rem solid $grey;
+        border-radius: 100%;
+        flex-shrink: 0;
+        margin-right: 0.5rem;
+
+        &.selected {
+            border-color: $light-blue;
+
+            &::after {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 100%;
+                content: '';
+                background-color: $light-blue;
+                width: 0.5rem;
+                height: 0.5rem;
+            }
+        }
+    }
+
     p {
         width: 100%;
     }
 
-    input {
-        margin-right: 0.5rem;
-    }
+    input { display: none; }
 
     label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: fit-content;
         height: 100%;
         background-color: $light-grey;
@@ -308,9 +350,12 @@
         padding: 0.5rem;
         cursor: pointer;
 
-
         &:hover, &:focus-visible {
             background-color: $grey;
+            
+            .customRadio {
+                border-color: $light-blue;
+            }
         }
     }
 }

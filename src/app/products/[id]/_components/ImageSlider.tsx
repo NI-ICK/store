@@ -30,7 +30,16 @@ export function ImageSlider({ product }: { product: Product }) {
                     transform: `translateX(${-100 * imageIndex}%)`,
                     opacity: index === imageIndex ? 1 : 0
                 }}>
-                    <Image src={image} alt={product.title} key={index} draggable={false} width={480} height={480}/>
+                    <Image 
+                        src={image} 
+                        alt={product.title} 
+                        key={index} 
+                        draggable={false} 
+                        width={480} 
+                        height={480} 
+                        quality={80}
+                        unoptimized
+                        />
                 </div>
             ))}
             <button className={styles.prev} style={{ display: product.images.length > 1 ? 'flex' : 'none'}} onClick={() => handlePrevImage()}><ArrowIcon rotate={90}/></button>

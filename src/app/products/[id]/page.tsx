@@ -5,15 +5,20 @@ import Link from 'next/link'
 import { ImageSlider } from '@/app/products/[id]/_components/ImageSlider'
 import { Buttons } from './_components/Buttons'
 import Image from 'next/image'
+import { MoreProducts } from './_components/MoreProducts'
+import { notFound } from 'next/navigation'
 
-export default async function Product({ params }: { params: { id: number }}) {
-    const product: Product = await fetchSingleProduct(params.id)
+export default async function Product(props: { params: Promise<{ id: number }>}) {
+    const params = await props.params;
+
+    const product: Product | undefined = await fetchSingleProduct(params.id)
+    if(!product) notFound()
+
     const rating = parseFloat((product.reviews.reduce((sum, review) => sum + review.rating, 0) / product.reviews.length).toFixed(2))
     const moreProducts: Product[] = await fetchProductsByCategory(product.category)
 
     const handleProductPrice = (product: Product) => {
         const discountedPrice = (product.price - (product.price * (product.discountPercentage / 100))).toFixed(2)
-
         return '$ ' + discountedPrice
     }
 
@@ -39,10 +44,6 @@ export default async function Product({ params }: { params: { id: number }}) {
         if(hasHalfStar) stars.push(<StarIcon className='halfStar' key='hlaf'/>)
 
         return <span>{stars}</span>
-    }
-
-    const handleProductTitle = (title: string) => {
-        return title.length > 25 ? title.substring(0, 22) + '...' : title
     }
 
     return <>
@@ -72,18 +73,7 @@ export default async function Product({ params }: { params: { id: number }}) {
                 </div>
             </div>
 
-            <div className={styles.moreProducts}>
-                <h2>More like this</h2>
-                <div className={styles.productList}>
-                    {moreProducts.filter(p => p.id !== product.id).slice(0, 10).map((p, index) => (
-                        <Link href={`/products/${p.id}`} key={index} className={styles.similarProduct}>
-                            <Image src={p.thumbnail} alt={p.title} width={160} height={160}/>
-                            <p>{handleProductTitle(p.title)}</p>
-                            <p><span>{'$ ' + p.price}</span><span>{handleProductPrice(p)}</span></p>
-                        </Link>
-                    ))}
-                </div>
-            </div>
+            <MoreProducts moreProducts={moreProducts} productId={product.id} />
 
             <div className={styles.reviews} id='reviews'>
                 <h2>Reviews</h2>

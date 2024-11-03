@@ -14,8 +14,10 @@ export function SearchModal({ showModal, setShowModal, navigate }: Modal ){
 
     return <>
         <div className={styles.backdrop} onClick={() => setShowModal(false)}>
-            <input type="text" placeholder="Search" onClick={(e) => e.stopPropagation()}/>
-            <button onClick={() => navigate() }>Search</button>
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+                <input type="text" placeholder="Search" onClick={(e) => e.stopPropagation()}/>
+                <button onClick={() => navigate() }>Search</button>
+            </div>
         </div>
     </>
 }

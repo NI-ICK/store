@@ -7,6 +7,9 @@ const nextConfig = {
                 hostname: "cdn.dummyjson.com"
             }
         ]
+    },
+    sassOptions: {
+        silenceDeprecations: ["legacy-js-api"],
     }
 }
 

@@ -20,7 +20,7 @@ const calculateTotalPrice = (cartItems: CartItem[]) => {
     }, 0).toFixed(2))
 }
 
-export const useCart = create(persist(set => ({
+export const useCartStore = create(persist(set => ({
         cartItems: [],
         totalPrice: 0,
         addCartItem: (product) => set(state => {

@@ -7,7 +7,7 @@ type Wishlist = {
     removeWishlistItem: (product: Product) => void
 }
 
-export const useWishlist = create(persist(set => ({
+export const useWishlistStore = create(persist(set => ({
         wishlistItems: [],
         addWishlistItem: (product) => set(state => {
             const foundProduct = state.wishlistItems.find(item => item.id === product.id)

@@ -14,6 +14,10 @@ export function SearchBar({ categories }: { categories: string[] }) {
     const [ query, setQuery ] = useState('')
     const router = useRouter()
 
+    const handleCategoryName = (category: string) => {
+        return category[0].toUpperCase() + category.slice(1).replace(/-/g, ' ')
+    }
+
     const navigate = () => {
         const queryParams: string[] = []
         if(query) queryParams.push(`q=${encodeURIComponent(query)}`)
@@ -27,15 +31,17 @@ export function SearchBar({ categories }: { categories: string[] }) {
         <SearchModal showModal={showModal} setShowModal={setShowModal}  navigate={navigate} />
         <div className={styles.searchBar}> 
             <input type="text" placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => { if(e.key === "Enter") navigate() }}/>
-            <div className={styles.dropdownBtn} onClick={() => setShowCategories(!showCategories)} tabIndex={0}>
+            <div className={styles.dropdownBtn} onClick={() => setShowCategories(!showCategories)} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
                 <p>{selectedCategory}</p><span><ArrowIcon /></span>
             </div>
-            <div className={styles.dropdownMenu} style={{ display: showCategories ? 'block' : 'none' }} onMouseLeave={() => setShowCategories(false)}>
-                {categories && categories.map((category, index) => (
-                    <p key={index} onClick={() => setSelectedCategory(category)}>{category}</p>
-                ))}
+            <div style={{ display: showCategories ? 'block' : 'none' }} onMouseLeave={() => setShowCategories(false)} className={styles.dropdownMenu}>
+                <div className={styles.content} >
+                    {categories && categories.map((category, index) => (
+                        <p key={index} onClick={() => setSelectedCategory(category)} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>{handleCategoryName(category)}</p>
+                    ))}
+                </div>
             </div>
-            <span onClick={ () => { navigate() }} tabIndex={0} className={styles.searchIcon} >
+            <span onClick={ () => { navigate() }} tabIndex={0} className={styles.searchIcon} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
                 <SearchIcon />
             </span>
         </div>

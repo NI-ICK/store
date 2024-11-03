@@ -12,6 +12,17 @@
     height: 100%;
     background-color: rgba(black, 0.3);
 
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 0.5rem;
+        width: 85%;
+        height: 12rem;
+    }
+
     input {
         width: 80%; 
         height: 2.5rem;
@@ -25,10 +36,9 @@
         border: none;
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
-        margin-top: 2rem;
-        margin-bottom: 15rem;
         background-color: $light-blue;
         color: white;
+        margin-top: 1rem;
 
         &:hover, &:focus-visible {
             background-color: $blue;
@@ -48,15 +58,6 @@
     
     @include sm { min-width: 5rem; }
     @include xs { display: none; }
-
-    &:focus-visible-within {
-        box-shadow: 0 0 0.5rem $grey;
-        background-color: white;
-
-        .dropdownBtn:hover, .dropdownBtn:focus {
-            background-color: $light-grey;
-        }
-    }
     
     & + span {
         display: none;
@@ -104,15 +105,11 @@
     cursor: pointer;
     
     svg {
-        fill: black;
+        fill: white;
     }
 
     &:hover, &:focus-visible {
         background-color: $blue;
-        
-        svg {
-            fill: white;
-        }
     }
 }
 
@@ -170,15 +167,20 @@
 
 .dropdownMenu {
     position: absolute;
-    border: 0.1rem solid $grey;
+    border: 0.15rem solid $grey;
     background-color: white;
     border-radius: 0.5rem;
     top: 100%;
     right: 5%;
     width: 8rem;
     height: 15rem;
-    overflow-y: scroll;
+    padding-right: 0.2rem;
     margin-top: 0.1rem;
+
+    .content {
+        overflow-y: scroll;
+        height: 100%;
+    }
 
     p {
         cursor: pointer;
@@ -187,7 +189,7 @@
         margin: 0.2rem;
         font-size: 0.7rem;
 
-        &:hover {
+        &:hover, &:focus-visible {
             background-color: $light-grey;
         }
     }

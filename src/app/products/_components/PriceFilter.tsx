@@ -1,9 +1,14 @@
 "use client"
 
 import styles from '@/styles/modules/Products.module.scss'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
-export function PriceFilter({ qPriceFrom, qPriceTo}: { qPriceFrom?: string, qPriceTo?: string }) {
+export function PriceFilter() {
+    const params = useSearchParams()
+    const price = params.get('pr')
+    const qPriceFrom = price?.split('-')[0] as string 
+    const qPriceTo = price?.split('-')[1] as string
     const [ priceFrom, setPriceFrom ] = useState<string>(qPriceFrom ? qPriceFrom : '')
     const [ priceTo, setPriceTo ] = useState<string>(qPriceTo ? qPriceTo : '')
 

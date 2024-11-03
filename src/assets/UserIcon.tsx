@@ -1,4 +1,4 @@
-export function ProfileIcon({ params }: { params?: React.SVGProps<SVGSVGElement> }) {
+export function UserIcon({ params }: { params?: React.SVGProps<SVGSVGElement> }) {
     return (
         <svg
           fill="#000"

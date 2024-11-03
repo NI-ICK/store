@@ -1,3 +1,5 @@
+import { RowDataPacket } from "mysql2"
+
 declare global {
     type Product = {
         id: number
@@ -38,6 +40,14 @@ declare global {
         images: string[]
         thumbnail: string
     }
+
+    type User = {
+        id: number
+        name: string
+        email: string
+        isAdmin: boolean
+    }
+    type UserQuery = RowDataPacket & User
 }
 
 export {}
