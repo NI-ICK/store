@@ -1,6 +1,7 @@
 "use client"
 
 import { XIcon } from "@/assets/XIcon"
+import { CheckoutButton } from "@/app/cart/_components/CheckoutButton"
 import { useCartStore } from "@/store/useCartStore"
 import styles from '@/styles/modules/Cart.module.scss'
 import Image from "next/image"
@@ -13,7 +14,7 @@ export default function Cart() {
     const changeItemQuantiy = useCartStore(state => state.changeItemQuantiy)
 
     const handleProductPrice = (product: Product) => {
-        return '$ ' + (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
+        return <span>{'$ ' + (product.price - (product.price * (product.discountPercentage / 100))).toFixed(2)}</span>
     }
 
     return <>
@@ -27,7 +28,7 @@ export default function Cart() {
                         <div>
                             <div className={styles.details}>
                                 <Link href={`/products/${cartItem.id}`}><h3>{cartItem.title}</h3></Link>
-                                <p>{handleProductPrice(cartItem)}</p>
+                                <p>Price: {handleProductPrice(cartItem)}</p>
                             </div>
                             <div className={styles.info}>
                                 <input type="number" value={cartItem.quantity} onChange={(e) => { 
@@ -41,8 +42,8 @@ export default function Cart() {
                 )})}
                 </div>
                 <div className={styles.footer}>
-                    <p>{'$ ' + totalPrice}</p>
-                    <button>Checkout</button>
+                    <p className={styles.price}>{'$ ' + totalPrice}</p>
+                    <CheckoutButton />
                 </div>
             </div>
         </div>

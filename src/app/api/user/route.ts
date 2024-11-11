@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { connectToDatabase } from "@/utils/connectToDatabase"
-import { FieldPacket } from "mysql2"
+import { FieldPacket, ResultSetHeader } from "mysql2"
 import { cookies } from "next/headers"
 import bcrypt from 'bcrypt'
 
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
         const [user]: [UserQuery[], FieldPacket[]] = await db.query("SELECT id, name, email, isAdmin FROM users WHERE id LIKE ?", [validToken.id]) 
         if(!user.length) return NextResponse.json({ message: "User not found" }, { status: 404 })
             
-        return NextResponse.json(user[0])
+        return NextResponse.json(user[0], { status: 200 })
     } catch(error) {
         let message = "Unknown error"
         if(error instanceof Error) message = error.message
@@ -45,8 +45,8 @@ export async function PUT(req: NextRequest) {
         if(email) fields.push('email = ?'), values.push(email)
         if(hashedPassword) fields.push('password = ?'), values.push(hashedPassword)
 
-        const query = await db.query(`UPDATE users SET ${fields.join(', ')} WHERE id LIKE ?`, [ ...values, id ])
-        if(!query) return NextResponse.json({ message: "Error updating user" }, { status: 500 })
+        const [query]: [ResultSetHeader, FieldPacket[]] = await db.query(`UPDATE users SET ${fields.join(', ')} WHERE id LIKE ?`, [ ...values, id ])
+        if(query.affectedRows === 0) return NextResponse.json({ message: "Error updating user" }, { status: 500 })
 
         return NextResponse.json({ message: "User updated succesfully" }, { status: 200 }) 
     } catch(error) {
@@ -64,8 +64,8 @@ export async function DELETE(req: NextRequest) {
         const db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
-        const query = await db.query('DELETE FROM users WHERE id LIKE ?', [userId])
-        if(!query) return NextResponse.json({ message: "Error removing user" }, { status: 500 })
+        const [query]: [ResultSetHeader, FieldPacket[]] = await db.query('DELETE FROM users WHERE id LIKE ?', [userId])
+        if(query.affectedRows === 0) return NextResponse.json({ message: "Error removing user" }, { status: 500 });
         
         (await cookies()).delete('token')
         return NextResponse.json({ message: "User removed succesfully" }, { status: 200 })

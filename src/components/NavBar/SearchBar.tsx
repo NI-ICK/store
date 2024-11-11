@@ -32,7 +32,7 @@ export function SearchBar({ categories }: { categories: string[] }) {
         <div className={styles.searchBar}> 
             <input type="text" placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => { if(e.key === "Enter") navigate() }}/>
             <div className={styles.dropdownBtn} onClick={() => setShowCategories(!showCategories)} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
-                <p>{selectedCategory}</p><span><ArrowIcon /></span>
+                <p>{handleCategoryName(selectedCategory)}</p><span><ArrowIcon /></span>
             </div>
             <div style={{ display: showCategories ? 'block' : 'none' }} onMouseLeave={() => setShowCategories(false)} className={styles.dropdownMenu}>
                 <div className={styles.content} >

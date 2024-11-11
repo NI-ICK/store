@@ -23,9 +23,7 @@ export function UserLayout({ children }: { children: React.ReactNode }) {
                     <Link href="/orders" className={path === '/orders' ? styles.active : ''}>Orders</Link>
                     <Link href="/settings" className={path === '/settings' ? styles.active : ''}>Settings</Link>
                 </div>
-                <div className={styles.content}>
-                    {children}
-                </div>
+                {children}
             </div>
         </div>
     </>

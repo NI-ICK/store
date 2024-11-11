@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/utils/FetchDataats"
-  ],
+, "src/app/cart/_components"  ],
   "exclude": [
     "node_modules"
   ]

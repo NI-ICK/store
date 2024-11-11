@@ -1,5 +1,5 @@
 import styles from '@/styles/modules/ProductDetails.module.scss'
-import { fetchProductsByCategory, fetchSingleProduct } from '@/utils/FetchData'
+import { fetchProductsByCategory, fetchSingleProduct } from '@/utils/fetchData'
 import { StarIcon } from '@/assets/StarIcon'
 import Link from 'next/link'
 import { ImageSlider } from '@/app/products/[id]/_components/ImageSlider'
@@ -9,7 +9,7 @@ import { MoreProducts } from './_components/MoreProducts'
 import { notFound } from 'next/navigation'
 
 export default async function Product(props: { params: Promise<{ id: number }>}) {
-    const params = await props.params;
+    const params = await props.params
 
     const product: Product | undefined = await fetchSingleProduct(params.id)
     if(!product) notFound()

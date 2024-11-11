@@ -4,7 +4,7 @@ import { EyeIcon } from '@/assets/EyeIcon'
 import { SlashEyeIcon } from '@/assets/SlashEyeIcon'
 import { useUserStore } from '@/store/useUserStore'
 import styles from '@/styles/modules/NavBar.module.scss'
-import { fetchUser } from '@/utils/FetchData'
+import { fetchUser } from '@/utils/fetchData'
 import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
 import { useMainStore } from '@/store/useMainStore'
@@ -35,10 +35,11 @@ export function LoginModal({ showLoginModal, setShowLoginModal, setShowRegisterM
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            const response = await axios.post('/api/login', formData)
-            const user = await fetchUser(response.data.token)
+            await axios.post('/api/login', formData)
+            const user = await fetchUser()
             setUser(user)
         } catch(error) {
+            console.log(error)
             let message = 'Unknown Error'
             if(error instanceof AxiosError && error.response) message = error.response.data.message
             setPopupMessage(message)

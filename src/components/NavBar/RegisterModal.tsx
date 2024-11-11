@@ -43,6 +43,7 @@ export function RegisterModal({ showRegisterModal, setShowRegisterModal }: Props
             await axios.post('/api/register', formData)
             setPopupMessage('Registered Succesfully')
         } catch(error) {
+            console.log(error)
             let message = 'Unknown Error'
             if(error instanceof AxiosError && error.response) message = error.response.data.message
             setPopupMessage(message)

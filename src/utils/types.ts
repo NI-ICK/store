@@ -42,12 +42,30 @@ declare global {
     }
 
     type User = {
-        id: number
+        id: string
         name: string
         email: string
         isAdmin: boolean
     }
     type UserQuery = RowDataPacket & User
+
+    type Order = {
+        id: string
+        createdAt: Date
+        orderId: string
+        orderItems: OrderItem[]
+        status: string
+        userId: string
+        paymentIntentId: string
+        totalPrice: number
+    }
+
+    type OrderItem = {
+        id: string
+        product: Product
+        productId: number
+        quantity: number
+    }
 }
 
 export {}

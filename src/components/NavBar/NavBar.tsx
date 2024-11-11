@@ -1,14 +1,11 @@
 import styles from '@/styles/modules/NavBar.module.scss'
 import { SearchBar } from "./SearchBar"
-import { fetchCategories, fetchUser } from '@/utils/FetchData'
+import { fetchCategories, fetchUser } from '@/utils/fetchData'
 import { Links } from './Links'
-import { cookies } from 'next/headers'
 
 export async function NavBar() {
     const categories = await fetchCategories()
-    const token = (await cookies()).get('token')
-    let loggedUser: User | null = null
-    if(token) loggedUser = await fetchUser(token.value)
+    let loggedUser: User | null = await fetchUser()
 
     return <>
         <nav className={styles.navBar}>

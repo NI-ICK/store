@@ -4,7 +4,7 @@ import Link from "next/link"
 import styles from '@/styles/modules/NavBar.module.scss'
 import { useUserStore } from "@/store/useUserStore"
 import { useRouter } from "next/navigation"
-import { api } from "@/utils/FetchData"
+import axios from "axios"
 
 type Props = {
     showSettingsModal: boolean
@@ -17,7 +17,7 @@ export function SettingsModal({ showSettingsModal, setShowSettingsModal }: Props
 
     const handleLogout = () => {
         logoutUser()
-        api.post('/api/logout')
+        axios.post('/api/logout')
         router.push('/')
     }
 

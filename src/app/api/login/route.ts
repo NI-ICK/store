@@ -32,11 +32,10 @@ export async function POST(req: NextRequest) {
             path: '/',
             maxAge: 60 * 60 * 10 // 10h
         })
-        return NextResponse.json({ message: "Login successfull", token }, { status: 200 })
+        return NextResponse.json({ message: "Login successfull" }, { status: 200 })
     } catch(error) {
         let message = "Unknown error"
         if(error instanceof Error) message = error.message
-        console.log(message)
         return NextResponse.json({ message }, { status: 500 })
     }
 }

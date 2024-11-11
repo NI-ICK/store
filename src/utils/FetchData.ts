@@ -1,4 +1,7 @@
+"use server"
+
 import axios from "axios"
+import { cookies } from "next/headers"
 
 export const fetchAllProducts = async (page: number) => {
     try {
@@ -60,15 +63,37 @@ export const fetchCategories = async () => {
 
 //
 
-export const api = axios.create({ baseURL: process.env.API_URL })
-
-export const fetchUser = async (token: string) => {
+export const fetchUser = async () => {
     try {
-        const response = await api.get('/api/user', { headers: { Authorization: `Bearer: ${token}` }})
+        const token = ((await cookies()).get('token')?.value)
+        const response = await axios.get('/api/user', { headers: { Authorization: `Bearer: ${token}` }})
         return response.data
     } catch(error) {
         let message = "Unknown error"
         if(error instanceof Error) message = error.message
         console.log("Error fetching user: ", message)
+    }
+}
+
+export const fetchOrders = async (userId: string) => {
+    try {
+        const response = await axios.get('/api/orders', { params: { userId }})
+        return response.data
+    } catch(error) {
+        let message = "Unknown error"
+        if(error instanceof Error) message = error.message
+        console.log("Error fetching orders: ", message)
+    }
+}
+
+export const fetchSingleOrder = async (orderId: string) => {
+    try {
+        const response = await axios.get('/api/order', { params: { orderId }})
+        return response.data
+    } catch(error) {
+        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof Error) message = error.message
+        console.log("Error fetching order: ", message)
     }
 }

@@ -178,7 +178,7 @@
             list-style: none;
             font-size: 0.9rem;
             font-weight: bold;
-            color: $grey;
+            color: $dark-grey;
             margin-left: 2rem;
 
             span {
@@ -212,7 +212,7 @@
     }
 
     .price {
-        color: $grey;
+        color: $dark-grey;
         text-decoration: line-through;
     }
 
@@ -253,6 +253,10 @@
             &::-webkit-inner-spin-button,
             &::-webkit-inner-spin-button {
                 -webkit-appearance: none;         
+            }
+
+            &:focus {
+                background-color: $light-grey;
             }
         }
 
@@ -406,7 +410,7 @@
 
         span:first-child {
             text-decoration: line-through;
-            color: $grey;
+            color: $dark-grey;
         }
 
         span:last-child {

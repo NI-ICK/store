@@ -2,16 +2,15 @@
 
 .container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    flex-direction: column;
     height: 100%;
     background-color: $light-grey;
 }
 
 .cart {
     position: relative;
-    margin-top: 8rem;
+    margin-top: 10rem;
     margin-bottom: 3rem;
     width: min(75rem, 90%);
     height: 42rem;
@@ -39,10 +38,10 @@
         border-bottom-left-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
 
-        p {
+        .price {
             font-size: 1.5rem;
             font-weight: bold;
-            color: $blue;
+            color: $light-blue;
         }
 
         button {
@@ -87,20 +86,28 @@
     }
 
     .details {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
         width: 100%;
 
         @include sm { text-align: center; }
 
         p {
             font-weight: bold;
-            color: $blue;
+            color: $dark-grey;
+
+            span {
+                color: $light-blue;
+            }
         }
 
         a {
-            h3 {
-                @include md { font-size: 1rem; }
-                @include sm { font-size: 0.8rem; }
-            }
+            color: $light-blue;
+
+            @include md { font-size: 1rem; }
+            @include sm { font-size: 0.8rem; }
             
             &:hover, &:focus-visible {
                 text-decoration: underline;
@@ -133,6 +140,10 @@
             &::-webkit-inner-spin-button {
                 -webkit-appearance: none;         
             }
+
+            &:focus {
+                background-color: $grey;
+            }
         }
 
         button {
@@ -160,5 +171,44 @@
     img {
         width: 7rem;
         height: 7rem;
+    }
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: rgba(black, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .modal {
+        background-color: white;
+        border-radius: 0.5rem;
+        width: min(65rem, 90%);
+        padding: 1rem;
+
+        .content {
+            overflow-y: scroll;
+            max-height: 50rem;
+        }
+
+        .info {
+            color: $red;
+
+            span {
+                font-weight: bold;
+            }
+
+            li {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        * {
+            border-radius: 0.5rem;
+        }
     }
 }

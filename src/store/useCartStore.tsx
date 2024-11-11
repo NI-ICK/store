@@ -11,12 +11,13 @@ type Cart = {
     addCartItem: (product: Product) => void 
     removeCartItem: (product: Product) => void 
     changeItemQuantiy: (product: CartItem, newQuantity: number) => void
+    emptyCartItems: () => void
 }
 
 const calculateTotalPrice = (cartItems: CartItem[]) => {
     return parseFloat(cartItems.reduce((total, cartItem) => {
         const discountedPrice =  cartItem.price * (1 - cartItem.discountPercentage / 100)
-        return Math.round((total + discountedPrice * cartItem.quantity) * 100) / 100
+        return Math.ceil((total + discountedPrice * cartItem.quantity) * 100) / 100
     }, 0).toFixed(2))
 }
 
@@ -25,13 +26,14 @@ export const useCartStore = create(persist(set => ({
         totalPrice: 0,
         addCartItem: (product) => set(state => {
             const existingItem = state.cartItems.find(cartItem => cartItem.id === product.id)
-           
+            const updatedCartItems =  [...state.cartItems, { ...product, quantity: 1 }]
+
             if(existingItem) return { 
-                totalPrice: calculateTotalPrice(state.cartItems),
+                totalPrice: calculateTotalPrice([...state.cartItems, existingItem]),
                 cartItems: state.cartItems.map(cartItem => cartItem.id === product.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem)
             }
 
-            return { cartItems: [ ...state.cartItems, { ...product, quantity: 1 }], totalPrice: calculateTotalPrice(state.cartItems) }
+            return { cartItems: updatedCartItems,  totalPrice: calculateTotalPrice(updatedCartItems) }
         }),
         removeCartItem: (product) => set(state => {
             const foundProduct = state.cartItems.find(cartItem => cartItem.id === product.id)
@@ -49,7 +51,8 @@ export const useCartStore = create(persist(set => ({
                 cartItems: updatedCartItems,
                 totalPrice: calculateTotalPrice(updatedCartItems),
             }
-        })
+        }),
+        emptyCartItems: () => set({ cartItems: [], totalPrice: 0 })
     }),
     {
         name: 'cart-storage',

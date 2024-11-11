@@ -1,7 +1,7 @@
 import styles from '@/styles/modules/Products.module.scss'
 import Fuse from "fuse.js"
 import Link from 'next/link'
-import { fetchAllProducts, fetchProductsByCategory, fetchProductsByQuery, fetchCategories } from "@/utils/FetchData"
+import { fetchAllProducts, fetchProductsByCategory, fetchProductsByQuery, fetchCategories } from "@/utils/fetchData"
 import { SearchIcon } from "@/assets/SearchIcon"
 import { CategoryFilter } from "@/app/products/_components/CategoryFilter"
 import { filterProducts } from '../_actions/filterProducts'
