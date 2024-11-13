@@ -40,6 +40,9 @@ export function CheckoutButton() {
                         <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
                             <EmbeddedCheckout />
                         </EmbeddedCheckoutProvider>
+                        <div className={styles.cancel} >
+                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>

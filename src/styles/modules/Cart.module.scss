@@ -2,7 +2,7 @@
 
 .container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     height: 100%;
     background-color: $light-grey;
@@ -10,14 +10,13 @@
 
 .cart {
     position: relative;
-    margin-top: 10rem;
-    margin-bottom: 3rem;
     width: min(75rem, 90%);
-    height: 42rem;
+    height: min(42rem, 80%);
     background-color: white;
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 0 1rem $grey;
+    margin-top: 5rem;
 
     .cartItems {
         overflow-y: scroll;
@@ -192,6 +191,23 @@
         .content {
             overflow-y: scroll;
             max-height: 50rem;
+
+            .cancel {
+                width: 100%;
+
+                button {
+                    display: block;
+                    background-color: $light-grey;
+                    margin-top: 1rem;
+                    align-self: center;
+                    margin-inline: auto;
+    
+                    &:hover, &:focus-visible {
+                        color: black;
+                        background-color: $grey;
+                    }
+                }
+            }
         }
 
         .info {
@@ -205,10 +221,6 @@
                 font-size: 0.8rem;
                 margin-bottom: 0.5rem;
             }
-        }
-
-        * {
-            border-radius: 0.5rem;
         }
     }
 }

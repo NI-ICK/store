@@ -32,8 +32,8 @@ export default function Cart() {
                             </div>
                             <div className={styles.info}>
                                 <input type="number" value={cartItem.quantity} onChange={(e) => { 
-                                    if(Number(e.target.value) <= 99 && Number(e.target.value) !== 0) changeItemQuantiy(cartItem, Number(e.target.value)) 
-                                    if(Number(e.target.value) > 99 && Number(e.target.value) !== 0) changeItemQuantiy(cartItem, 99)  
+                                    if(Number(e.target.value) <= 99 && Number(e.target.value) !== 0 && Number(e.target.value) <= cartItem.stock) changeItemQuantiy(cartItem, Number(e.target.value)) 
+                                    if(Number(e.target.value) > cartItem.stock && Number(e.target.value) !== 0) changeItemQuantiy(cartItem, cartItem.stock)  
                                     }}/>
                                 <button onClick={() => removeCartItem(cartItem)}><XIcon /></button>
                             </div>

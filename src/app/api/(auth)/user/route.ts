@@ -6,6 +6,7 @@ import { cookies } from "next/headers"
 import bcrypt from 'bcrypt'
 
 export async function GET(req: NextRequest) {
+    let db
     try {
         const token = req.headers.get('Authorization')?.split(' ')[1]
         if(!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
@@ -13,7 +14,7 @@ export async function GET(req: NextRequest) {
         const validToken = jwt.verify(token, `${process.env.JWT_SECRET}`) as JwtPayload
         if(!validToken) return NextResponse.json({ message: "Invalid token" }, { status: 401 })
 
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const [user]: [UserQuery[], FieldPacket[]] = await db.query("SELECT id, name, email, isAdmin FROM users WHERE id LIKE ?", [validToken.id]) 
@@ -25,15 +26,18 @@ export async function GET(req: NextRequest) {
         if(error instanceof Error) message = error.message
         console.log(message)
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }
 
 export async function PUT(req: NextRequest) {
+    let db
     try {
         const { name, email, password, id } = await req.json()
         let hashedPassword = ''
 
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const fields = []
@@ -54,14 +58,17 @@ export async function PUT(req: NextRequest) {
         if(error instanceof Error) message = error.message
         console.log(message)
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }
 
 export async function DELETE(req: NextRequest) {
+    let db
     try {
         const { userId } = await req.json()
 
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const [query]: [ResultSetHeader, FieldPacket[]] = await db.query('DELETE FROM users WHERE id LIKE ?', [userId])
@@ -74,5 +81,7 @@ export async function DELETE(req: NextRequest) {
         if(error instanceof Error) message = error.message
         console.log(message)
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }

@@ -67,8 +67,8 @@ export function Buttons({ product }: { product: Product }) {
                     </span>
                     <p>In cart: </p>
                     <input type="number" value={itemInCart.quantity} onChange={(e) => { 
-                        if(Number(e.target.value) <= 99 && Number(e.target.value) !== 0) changeItemQuantiy(itemInCart, Number(e.target.value)) 
-                        if(Number(e.target.value) > 99 && Number(e.target.value) !== 0) changeItemQuantiy(itemInCart, 99)  
+                        if(Number(e.target.value) <= 99 && Number(e.target.value) !== 0 && Number(e.target.value) <= itemInCart.stock) changeItemQuantiy(itemInCart, Number(e.target.value)) 
+                        if(Number(e.target.value) > itemInCart.stock && Number(e.target.value) !== 0) changeItemQuantiy(itemInCart, itemInCart.stock)  
                         }}/>
                 </div>
                 <span className={styles.remove} tabIndex={0} onClick={() => { removeCartItem(product), setItemInCart(null) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>

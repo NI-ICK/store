@@ -13,6 +13,10 @@ export function CategoryFilter({ categoryList }: { categoryList: string[] }) {
         return category[0].toUpperCase() + category.slice(1).replace(/-/g, ' ')
     }
 
+    const handleCategorySelect = (category: string) => {
+        setSelectedCategory(prevCategory => prevCategory === category ? null : category)
+    }
+
     return <>
         <div className={styles.categoriesFilter}>
             <p>Categories</p>
@@ -25,9 +29,9 @@ export function CategoryFilter({ categoryList }: { categoryList: string[] }) {
                         if(e.key === "Enter") {
                             const input = document.getElementById(category) as HTMLInputElement
                             input.checked = true
-                            setSelectedCategory(category)
+                            handleCategorySelect(category)
                     }}}>
-                    <input type="radio" id={category} name="category" value={category} checked={selectedCategory === category} onChange={() => setSelectedCategory(category)}/>
+                    <input type="checkbox" id={category} name="category" value={category} checked={selectedCategory === category} onChange={() => handleCategorySelect(category)}/>
                     <span className={`${styles.customRadio} ${selectedCategory === category ? styles.selected : ''}`}></span>
                     {handleCategoryName(category)}
                 </label>

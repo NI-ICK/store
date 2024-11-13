@@ -9,6 +9,7 @@ const fetchSingleOrderWithProducts = async (id: string): Promise<Order | null> =
     if(!id) return null
 
     const response = await fetchSingleOrder(id)
+    if(!response) return null
     const orderItemsWithProducts = await Promise.all(
         response.orderItems.map(async (item: OrderItem) => {
             const product = await fetchSingleProduct(item.productId)

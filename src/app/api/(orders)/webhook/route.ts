@@ -5,6 +5,7 @@ import { FieldPacket, ResultSetHeader } from "mysql2"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
+    let db
     try {
         const event = stripe.webhooks.constructEvent(
             await req.text(),
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
             const totalPrice = event.data.object.amount_total! / 100
             const paymentIntentId = event.data.object.payment_intent
 
-            const db = await connectToDatabase()
+            db = await connectToDatabase()
             if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
             await db.beginTransaction()
@@ -56,5 +57,7 @@ export async function POST(req: NextRequest) {
         let message = "Unknow error"
         if(error instanceof Error) message = error.message
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }

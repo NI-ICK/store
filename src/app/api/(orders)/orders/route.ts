@@ -4,10 +4,11 @@ import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
+    let db
     try {
         const userId = req.nextUrl.searchParams.get('userId')
 
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const [query]: [RowDataPacket[], FieldPacket[]] = await db.query(
@@ -43,14 +44,17 @@ export async function GET(req: NextRequest) {
         let message = "Unknow error"
         if(error instanceof Error) message = error.message
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }   
 
 export async function PUT(req: NextRequest) {
+    let db
     try {
         const { orderId, paymentIntentId } = await req.json()
 
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         await db.beginTransaction()
@@ -72,5 +76,7 @@ export async function PUT(req: NextRequest) {
         let message = "Unknown error"
         if(error instanceof Error) message = error.message
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }

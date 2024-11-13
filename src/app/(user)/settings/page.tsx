@@ -1,7 +1,6 @@
 "use client"
 
 import styles from '@/styles/modules/User.module.scss'
-import { UserLayout } from "@/components/UserLayout"
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/store/useUserStore'
@@ -43,9 +42,7 @@ export default function Settings() {
     }
 
     return <>
-    <UserLayout>
         <div className={styles.content}>
-
             <h2>Settings</h2>
             <form onSubmit={handleSubmit}>
                 <div className={styles.wrapper}>
@@ -74,6 +71,5 @@ export default function Settings() {
                 </div>
             </div>}
         </div>
-    </UserLayout>
     </>
 }

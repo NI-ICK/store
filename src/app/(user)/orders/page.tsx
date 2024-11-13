@@ -1,4 +1,3 @@
-import { UserLayout } from "@/components/UserLayout"
 import { fetchOrders, fetchSingleProduct } from "@/utils/fetchData"
 import styles from '@/styles/modules/User.module.scss'
 import { getUserId } from "@/utils/getUserId"
@@ -11,6 +10,7 @@ const fetchOrdersWithProducts = async (): Promise<Order[]> => {
     if(!userId) return []
 
     const response = await fetchOrders(userId)
+    if(!response) return []
     return await Promise.all(
         response.orders.map(async (order: Order) => {
             const ordersWithProducts = await Promise.all(
@@ -37,10 +37,9 @@ export default async function Orders() {
     }
 
     return <>
-    <UserLayout>
         <div className={styles.orders}>
             <h2>Orders</h2>
-            {orders.map((order, index) => (
+            {orders && orders.map((order, index) => (
                 <Link href={`/orders/${order.id}`} key={index} className={styles.order}>
                     <div className={styles.products}>
                         {order.orderItems.slice(0, 3).map((item, index) => (
@@ -54,12 +53,11 @@ export default async function Orders() {
                     <div className={styles.details}>
                         {handleDate(order)}
                         <p className={styles.totalPrice}>Total price<span>{'$ ' + order.totalPrice.toFixed(2)}</span></p>
+                        <p className={`${styles.status} ${order.status === 'Refunded' ? styles.refunded : ''}`}>{order.status}</p>
                     </div>
-                    <p className={`${styles.status} ${order.status === 'Refunded' ? styles.refunded : ''}`}>{order.status}</p>
                 </Link>
             ))}
         </div>
-    </UserLayout>
     </>
 }
 

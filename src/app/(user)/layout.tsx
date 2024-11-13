@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-export function UserLayout({ children }: { children: React.ReactNode }) {
+export default function UserLayout({ children }: { children: React.ReactNode }) {
     const path = usePathname()
     const user = useUserStore(state => state.user)
     const loading = useUserStore(state => state.loading)
@@ -15,16 +15,17 @@ export function UserLayout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if(!user && !loading) router.push('/')
     }, [user, loading])
-
+    
     return <>
-        <div className={styles.background}>
+        {(path === '/orders' || path === '/settings') ? <div className={styles.background}>
             <div className={styles.container}>
-                <div className={styles.nav}>
+                <nav className={styles.nav}>
                     <Link href="/orders" className={path === '/orders' ? styles.active : ''}>Orders</Link>
                     <Link href="/settings" className={path === '/settings' ? styles.active : ''}>Settings</Link>
-                </div>
+                </nav>
                 {children}
             </div>
-        </div>
+        </div> : 
+        children}
     </>
 }

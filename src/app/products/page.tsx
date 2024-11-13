@@ -2,13 +2,10 @@ import styles from '@/styles/modules/Products.module.scss'
 import Fuse from "fuse.js"
 import Link from 'next/link'
 import { fetchAllProducts, fetchProductsByCategory, fetchProductsByQuery, fetchCategories } from "@/utils/fetchData"
-import { SearchIcon } from "@/assets/SearchIcon"
-import { CategoryFilter } from "@/app/products/_components/CategoryFilter"
-import { filterProducts } from '../_actions/filterProducts'
-import { PriceFilter } from '@/app/products/_components/PriceFilter'
 import { XIcon } from '@/assets/XIcon'
 import { Buttons } from './_components/Buttons'
 import Image from 'next/image'
+import { Filters } from './_components/Filters'
 
 export default async function Products(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const searchParams = await props.searchParams
@@ -66,31 +63,22 @@ export default async function Products(props: { searchParams: Promise<{ [key: st
         return products = []
     }
     await getProducts()
+    
+    const filteredProducts = products.filter(product => {
+        if(!priceFrom || !priceTo) return product
+        return (product.price <= Number(priceTo)) && (product.price >= Number(priceFrom))
+    })
 
     return <>
         <div className={styles.mainContainer}>
-            <div className={styles.filters}>
-                <form action={filterProducts}>
-                    <div className={styles.header}>
-                        <h2>Filters</h2>
-                        <button type="submit"><SearchIcon /></button>
-                    </div>
-                    <input type="text" name="query" style={{ display: 'none' }} defaultValue={query ? query : undefined}/>
-                    <PriceFilter />
-                    <CategoryFilter categoryList={categoryList} />
-                </form>
-            </div>
+            <Filters categoryList={categoryList} query={query}/>
             <div className={styles.container}>
                 {query && <div className={styles.qResult}>
                     <h2>Showing results for: "{query}"</h2>
                     <Link href="/products"><XIcon /></Link>
                 </div>}
                 <div className={styles.products}>
-                    {products ? products
-                        .filter(product => {
-                            if(!priceFrom || !priceTo) return product
-                            return (product.price <= Number(priceTo)) && (product.price >= Number(priceFrom))
-                        })
+                    {filteredProducts.length > 0 ? (filteredProducts
                         .map((product, index) => (
                     <Link key={index} className={styles.product} href={`/products/${product.id}`}>
                         <Image src={product.thumbnail} alt={product.title} draggable={false} width={192} height={192}/>
@@ -101,7 +89,7 @@ export default async function Products(props: { searchParams: Promise<{ [key: st
                             <Buttons product={product}/>
                         </div>
                     </Link>
-                    )) : <p className={styles.info}>No products found</p>}
+                    ))) : <p className={styles.info}>No products found</p>}
                 </div>
                 {numberOfPages > 1 && <div className={styles.pageButtons}>
                     {Array.from({ length: numberOfPages }, (_, index) => {

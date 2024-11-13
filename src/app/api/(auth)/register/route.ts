@@ -5,11 +5,12 @@ import { FieldPacket, ResultSetHeader } from "mysql2"
 import { randomUUID } from "crypto"
 
 export async function POST(req: NextRequest) {
+    let db
     try {
         const { name, email, password } = await req.json()
         const hashedPassword = await bcrypt.hash(password, 10)
         
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
             
         const [existingUser]: [UserQuery[], FieldPacket[]] = await db.query("SELECT id FROM users WHERE email LIKE ?", [email])
@@ -24,5 +25,7 @@ export async function POST(req: NextRequest) {
         if(error instanceof Error) message = error.message
         console.log(message)
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }

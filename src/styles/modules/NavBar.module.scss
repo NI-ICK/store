@@ -41,11 +41,19 @@
             border-radius: 0.5rem;
         }
 
-        &:hover, &:focus-visible {
+        &.fill:hover, &.fill:focus-visible {
             background-color: $light-grey;
 
             svg {
                 fill: $blue;
+            }
+        }
+
+        &.stroke:hover, &.stroke:focus-visible {
+            background-color: $light-grey;
+
+            path {
+                stroke: $blue;
             }
         }
 

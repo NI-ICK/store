@@ -6,10 +6,11 @@ import jwt from 'jsonwebtoken'
 import { cookies } from "next/headers"
 
 export async function POST(req: NextRequest) {
+    let db
     try {
         const { email, password } = await req.json()
 
-        const db = await connectToDatabase()
+        db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const [user]: [UserQuery[], FieldPacket[]] = await db.query("SELECT * FROM users WHERE email LIKE ?", [email])
@@ -37,5 +38,7 @@ export async function POST(req: NextRequest) {
         let message = "Unknown error"
         if(error instanceof Error) message = error.message
         return NextResponse.json({ message }, { status: 500 })
+    } finally {
+        await db?.end()
     }
 }

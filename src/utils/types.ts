@@ -45,7 +45,7 @@ declare global {
         id: string
         name: string
         email: string
-        isAdmin: boolean
+        isAdmin: number
     }
     type UserQuery = RowDataPacket & User
 

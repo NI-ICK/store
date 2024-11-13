@@ -9,9 +9,7 @@ export const fetchAllProducts = async (page: number) => {
         const response = await axios.get(`https://dummyjson.com/products?skip=${page * 30}`)
         return response.data
     } catch(error) {
-        let message = "Unknown Error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching products: ", message)
+        console.log(error)
     }
 }
 
@@ -20,9 +18,7 @@ export const fetchSingleProduct = async (id: number) => {
         const response = await axios.get(`https://dummyjson.com/products/${id}`)
         return response.data
     } catch(error) {
-        let message = "Unknown Error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching product: ", message)
+        console.log(error)
     }
 }
 
@@ -32,9 +28,7 @@ export const fetchProductsByCategory = async (category: string, page?: number) =
         const response = await axios.get(`https://dummyjson.com/products/category/${category}${page ? `?skip=${page * 30}` : ''}`)
         return page !== undefined ? { products: response.data.products, total: response.data.total } : response.data.products
     } catch(error) {
-        let message = "Unknown Error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching products: ", message)
+        console.log(error)
     }
 }
 
@@ -44,9 +38,7 @@ export const fetchProductsByQuery = async (query: string, page: number) => {
         const response = await axios.get(`https://dummyjson.com/products/search?q=${query}&skip=${page * 30}`)
         return response.data
     } catch(error) {
-        let message = "Unknown Error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching products: ", message)
+        console.log(error)
     }
 }
 
@@ -55,9 +47,16 @@ export const fetchCategories = async () => {
         const response = await axios.get('https://dummyjson.com/products/category-list')
         return response.data
     } catch(error) {
-        let message = "Unknown Error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching categories: ", message)
+        console.log(error)
+    }
+}
+
+export const fetchProductCount = async () => {
+    try {
+        const response = await axios.get(`https://dummyjson.com/products?limit=0`)
+        return response.data.total
+    } catch(error) {
+        console.log(error)
     }
 }
 
@@ -69,9 +68,17 @@ export const fetchUser = async () => {
         const response = await axios.get('/api/user', { headers: { Authorization: `Bearer: ${token}` }})
         return response.data
     } catch(error) {
-        let message = "Unknown error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching user: ", message)
+        console.log(error)
+        return null
+    }
+}
+
+export const fetchUserData = async () => {
+    try {
+        const response = await axios.get('/api/users')
+        return response.data.userData
+    } catch(error) {
+        console.log(error)
     }
 }
 
@@ -80,9 +87,7 @@ export const fetchOrders = async (userId: string) => {
         const response = await axios.get('/api/orders', { params: { userId }})
         return response.data
     } catch(error) {
-        let message = "Unknown error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching orders: ", message)
+        console.log(error)
     }
 }
 
@@ -92,8 +97,32 @@ export const fetchSingleOrder = async (orderId: string) => {
         return response.data
     } catch(error) {
         console.log(error)
-        let message = "Unknown error"
-        if(error instanceof Error) message = error.message
-        console.log("Error fetching order: ", message)
+    }
+}
+
+export const fetchOrderCount = async () => {
+    try {
+        const response = await axios.get('/api/orderCount')
+        return response.data.count
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+export const fetchUserCount = async () => {
+    try {
+        const response = await axios.get('/api/userCount')
+        return response.data.count
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+export const fetchAdminData = async () => {
+    try {
+        const response = await axios.get('/api/data')
+        return response.data
+    } catch(error) {
+        console.log(error)
     }
 }
