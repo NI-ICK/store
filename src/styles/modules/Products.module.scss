@@ -107,6 +107,11 @@
         border: 0.15rem solid $light-grey;
     }
 
+    p {
+        color: $light-blue;
+        font-weight: bold;
+    }
+
     div {
         display: flex;
         align-items: center;

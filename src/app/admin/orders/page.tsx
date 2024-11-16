@@ -1,14 +1,11 @@
 import styles from '@/styles/modules/Admin.module.scss'
-import { fetchOrders, fetchSingleProduct } from '@/utils/fetchData'
-import { getUserId } from '@/utils/getUserId'
+import { fetchAllOrders, fetchSingleProduct } from '@/utils/fetchData'
 import { AdminRefundButton } from './_components/AdminRefundButton'
 
-const fetchOrdersWithProducts = async (): Promise<Order[]> => {
-    const userId = await getUserId()
-    if(!userId) return []
-
-    const response = await fetchOrders(userId)
+const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
+    const response = await fetchAllOrders()
     if(!response) return []
+    
     return await Promise.all(
         response.orders.map(async (order: Order) => {
             const ordersWithProducts = await Promise.all(
@@ -23,7 +20,7 @@ const fetchOrdersWithProducts = async (): Promise<Order[]> => {
 }
 
 export default async function OrderPage() {
-    const orders = await fetchOrdersWithProducts()
+    const orders = await fetchUserOrdersWithProducts()
 
     const handleDate = (order: Order) => {
         const date = order.createdAt.toString().split('T')[0].replace(/-/g, '.')

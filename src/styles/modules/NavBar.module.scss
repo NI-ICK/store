@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    gap: 2rem;
     padding: 1rem;
     box-shadow: 0 0.2rem 0.2rem $grey; 
     background-color: white;
@@ -41,7 +42,7 @@
             border-radius: 0.5rem;
         }
 
-        &.fill:hover, &.fill:focus-visible {
+        &.fill:hover, &.fill:focus-visible, &.active:not(.stroke) {
             background-color: $light-grey;
 
             svg {
@@ -49,11 +50,19 @@
             }
         }
 
-        &.stroke:hover, &.stroke:focus-visible {
+        &.stroke:hover, &.stroke:focus-visible, .active.stroke {
             background-color: $light-grey;
 
             path {
                 stroke: $blue;
+            }
+        }
+
+        &.home:hover, &.home:focus-visible, &.home.active {
+            background-color: $light-grey;
+            
+            path {
+                fill: $light-blue;
             }
         }
 
@@ -290,6 +299,12 @@
     border-radius: 0.5rem;
     padding: 1rem;
     background-color: white;
+
+    &.mobile {
+        right: -2rem;
+        left: auto;
+        transform: translateX(0);
+    }
 
     a, p {
         background-color: $light-grey;

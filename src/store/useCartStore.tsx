@@ -1,3 +1,4 @@
+import { getUserId } from "@/utils/getUserId"
 import { create } from "zustand"
 import { persist, PersistOptions } from "zustand/middleware"
 
@@ -21,7 +22,7 @@ const calculateTotalPrice = (cartItems: CartItem[]) => {
     }, 0).toFixed(2))
 }
 
-export const useCartStore = create(persist(set => ({
+export const useCartStore = create(persist((set) => ({
         cartItems: [],
         totalPrice: 0,
         addCartItem: (product) => set(state => {
@@ -55,7 +56,7 @@ export const useCartStore = create(persist(set => ({
         emptyCartItems: () => set({ cartItems: [], totalPrice: 0 })
     }),
     {
-        name: 'cart-storage',
+        name: `cart-${await getUserId()}`,
         getStorage: () => localStorage, 
     } as PersistOptions<Cart>
 )) 

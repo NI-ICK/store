@@ -9,9 +9,11 @@ import axios from "axios"
 type Props = {
     showSettingsModal: boolean
     setShowSettingsModal: React.Dispatch<React.SetStateAction<boolean>>
+    isMobile: boolean
+    isAdmin: number
 }
 
-export function SettingsModal({ showSettingsModal, setShowSettingsModal }: Props) {
+export function SettingsModal({ showSettingsModal, setShowSettingsModal, isMobile, isAdmin }: Props) {
     const logoutUser = useUserStore(state => state.logoutUser)
     const router = useRouter()
 
@@ -24,9 +26,10 @@ export function SettingsModal({ showSettingsModal, setShowSettingsModal }: Props
     if(!showSettingsModal) return null
 
     return <>
-        <div className={styles.settingsModal} onMouseLeave={() => setShowSettingsModal(false)}>
+        <div className={`${styles.settingsModal} ${isMobile ? styles.mobile : ''}`} onMouseLeave={() => setShowSettingsModal(false)}>
             <Link href={`/orders`}>Orders</Link>   
             <Link href={`/settings`}>Settings</Link>   
+            {isMobile && isAdmin ? <Link href={`/admin`}>Admin</Link> : null}
             <p onClick={handleLogout} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>Log out</p> 
         </div>    
     </>

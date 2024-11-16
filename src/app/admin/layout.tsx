@@ -2,9 +2,8 @@
 
 import { HamburgerIcon } from '@/assets/HamburgetIcon'
 import styles from '@/styles/modules/Admin.module.scss'
-import { fetchUser } from '@/utils/fetchData'
 import Link from 'next/link'
-import { redirect, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function AdminLayout({ children }: { children: React.ReactNode } ) {
@@ -21,15 +20,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode } 
         handleMobile()
         window.addEventListener('resize', () => { handleMobile() })
         return () => window.removeEventListener('resize', () => { handleMobile() })
-    }, [])
-
-    const loadData = async () => {
-        const user: User = await fetchUser()
-        if(!user || user.isAdmin === 0) redirect('/404')
-    }
-
-    useEffect(() => {
-        loadData()
     }, [])
 
     const handlePath = () => {

@@ -1,5 +1,5 @@
 import styles from '@/styles/modules/Admin.module.scss'
-import { fetchAllProducts } from '@/utils/fetchData'
+import { fetchAllProductsByPage } from '@/utils/fetchData'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MobileDetails } from './_components/MobileDetails'
@@ -11,7 +11,7 @@ export default async function ProductPage(props: { searchParams: Promise<{ [key:
     let products: Product[] = []
 
     const loadProducts = async () => {
-        const response = await fetchAllProducts(currentPage)
+        const response = await fetchAllProductsByPage(currentPage)
         if(response) {
             numberOfPages = Math.ceil(response.total / 30)
             return products = response.products

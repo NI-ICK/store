@@ -1,7 +1,7 @@
 import styles from '@/styles/modules/Products.module.scss'
 import Fuse from "fuse.js"
 import Link from 'next/link'
-import { fetchAllProducts, fetchProductsByCategory, fetchProductsByQuery, fetchCategories } from "@/utils/fetchData"
+import { fetchAllProductsByPage, fetchProductsByCategory, fetchProductsByQuery, fetchCategories } from "@/utils/fetchData"
 import { XIcon } from '@/assets/XIcon'
 import { Buttons } from './_components/Buttons'
 import Image from 'next/image'
@@ -55,7 +55,7 @@ export default async function Products(props: { searchParams: Promise<{ [key: st
             return products = fetchedProducts
         }
 
-        const response = await fetchAllProducts(currentPage)
+        const response = await fetchAllProductsByPage(currentPage)
         if(response) {
             numberOfPages = Math.ceil(response.total / 30)
             return products = response.products

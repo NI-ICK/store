@@ -1,20 +1,11 @@
 "use client"
 
-import { useUserStore } from '@/store/useUserStore'
 import styles from '@/styles/modules/User.module.scss'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
     const path = usePathname()
-    const user = useUserStore(state => state.user)
-    const loading = useUserStore(state => state.loading)
-    const router = useRouter()
-
-    useEffect(() => {
-        if(!user && !loading) router.push('/')
-    }, [user, loading])
     
     return <>
         {(path === '/orders' || path === '/settings') ? <div className={styles.background}>

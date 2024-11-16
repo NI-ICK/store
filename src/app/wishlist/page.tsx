@@ -14,7 +14,7 @@ export default function Wishlist() {
     const addCartItem = useCartStore(state => state.addCartItem)
     
     const handleProductPrice = (product: Product) => {
-        return '$ ' + (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
+        return <span>{'$ ' + (product.price * (1 - product.discountPercentage / 100)).toFixed(2)}</span>
     }
 
     return <>
@@ -28,7 +28,7 @@ export default function Wishlist() {
                         <div>
                             <div className={styles.details}>
                                 <Link href={`/products/${item.id}`}><h3>{item.title}</h3></Link>
-                                <p>{handleProductPrice(item)}</p>
+                                <p>Price: {handleProductPrice(item)}</p>
                             </div>
                             <div className={styles.info}>
                                 <button onClick={() => addCartItem(item)}><CartIcon /></button>

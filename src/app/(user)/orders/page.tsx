@@ -1,15 +1,16 @@
-import { fetchOrders, fetchSingleProduct } from "@/utils/fetchData"
+import { fetchUserOrders, fetchSingleProduct } from "@/utils/fetchData"
 import styles from '@/styles/modules/User.module.scss'
 import { getUserId } from "@/utils/getUserId"
 import { ArrowIcon } from "@/assets/ArrowIcon"
 import Link from "next/link"
 import Image from "next/image"
+import { ClearCart } from "./_components/ClearCart"
 
-const fetchOrdersWithProducts = async (): Promise<Order[]> => {
+const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
     const userId = await getUserId()
     if(!userId) return []
 
-    const response = await fetchOrders(userId)
+    const response = await fetchUserOrders(userId)
     if(!response) return []
     return await Promise.all(
         response.orders.map(async (order: Order) => {
@@ -25,7 +26,7 @@ const fetchOrdersWithProducts = async (): Promise<Order[]> => {
 }
 
 export default async function Orders() {
-    const orders = await fetchOrdersWithProducts()
+    const orders = await fetchUserOrdersWithProducts()
 
     const handleMoreItems = (order: Order) => {
         return order.orderItems.length > 3 ? <p className={styles.more}>{order.orderItems.length - 3} More<ArrowIcon rotate={-90}/></p> : null
@@ -37,6 +38,7 @@ export default async function Orders() {
     }
 
     return <>
+        <ClearCart orders={orders}/>
         <div className={styles.orders}>
             <h2>Orders</h2>
             {orders && orders.map((order, index) => (

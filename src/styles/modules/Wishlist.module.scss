@@ -57,10 +57,15 @@
 
         p {
             font-weight: bold;
-            color: $blue;
+            color: $dark-grey;
+
+            span {
+                color: $light-blue;
+            }
         }
 
         h3 {
+            color: $light-blue;
             @include md { font-size: 1rem; }
             @include sm { font-size: 0.8rem; }
             

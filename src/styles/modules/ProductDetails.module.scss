@@ -435,6 +435,11 @@
             box-shadow: 0 0 1rem $grey;
         }
 
+        p {
+            color: $light-blue;
+            font-weight: bold;
+        }
+
         img {
             margin-bottom: 0.5rem;
             max-width: 10rem;

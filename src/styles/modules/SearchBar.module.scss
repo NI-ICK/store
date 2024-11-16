@@ -52,11 +52,11 @@
     justify-content: center;
     position: relative;
     height: 2.5rem;
-    min-width: 30rem;
+    flex: 1;
+    max-width: 30rem;
     background-color: $light-grey;
     border-radius: 0.5rem;
     
-    @include sm { min-width: 5rem; }
     @include xs { display: none; }
     
     & + span {

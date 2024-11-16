@@ -3,7 +3,7 @@
 import axios from "axios"
 import { cookies } from "next/headers"
 
-export const fetchAllProducts = async (page: number) => {
+export const fetchAllProductsByPage = async (page: number) => {
     try {
         page = page - 1
         const response = await axios.get(`https://dummyjson.com/products?skip=${page * 30}`)
@@ -51,10 +51,10 @@ export const fetchCategories = async () => {
     }
 }
 
-export const fetchProductCount = async () => {
+export const fetchAllProducts = async () => {
     try {
         const response = await axios.get(`https://dummyjson.com/products?limit=0`)
-        return response.data.total
+        return response.data.products
     } catch(error) {
         console.log(error)
     }
@@ -62,10 +62,10 @@ export const fetchProductCount = async () => {
 
 //
 
-export const fetchUser = async () => {
+export const fetchUser = async (middleware?: boolean) => {
     try {
         const token = ((await cookies()).get('token')?.value)
-        const response = await axios.get('/api/user', { headers: { Authorization: `Bearer: ${token}` }})
+        const response = await axios.get(`${middleware ? process.env.WEBSITE_URL : ''}/api/user`, { headers: { Authorization: `Bearer: ${token}` }})
         return response.data
     } catch(error) {
         console.log(error)
@@ -82,9 +82,18 @@ export const fetchUserData = async () => {
     }
 }
 
-export const fetchOrders = async (userId: string) => {
+export const fetchUserOrders = async (userId: string) => {
     try {
         const response = await axios.get('/api/orders', { params: { userId }})
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+export const fetchAllOrders = async () => {
+    try {
+        const response = await axios.get('/api/all-orders')
         return response.data
     } catch(error) {
         console.log(error)

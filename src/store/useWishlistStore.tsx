@@ -1,3 +1,4 @@
+import { getUserId } from "@/utils/getUserId"
 import { create } from "zustand"
 import { persist, PersistOptions } from "zustand/middleware"
 
@@ -23,7 +24,7 @@ export const useWishlistStore = create(persist(set => ({
         })
     }),
     {
-        name: 'wishlist-storage',
+        name: `wishlist-${await getUserId()}`,
         getStorage: () => localStorage,
     } as PersistOptions<Wishlist>
 ))

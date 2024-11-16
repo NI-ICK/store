@@ -17,7 +17,7 @@ export function Filters({ categoryList, query }: { categoryList: string[], query
                 <div className={styles.header}>
                     <h2>Filters</h2>
                     <button type="submit"><SearchIcon /></button>
-                    <span onClick={() => setHideFilter(!hideFiter)}><ArrowIcon rotate={90}/></span>
+                    <span onClick={() => setHideFilter(!hideFiter)}><ArrowIcon rotate={180}/></span>
                 </div>
                 <input type="text" name="query" style={{ display: 'none' }} defaultValue={query ? query : undefined}/>
                 <div className={styles.mainFilters}>

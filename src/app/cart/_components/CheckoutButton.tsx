@@ -11,7 +11,6 @@ import axios from 'axios'
 export function CheckoutButton() {
     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!)
     const cartItems = useCartStore(state => state.cartItems)
-    const emptyCartItems = useCartStore(state => state.emptyCartItems)
     const user = useUserStore(state => state.user)
     const [ showModal, setShowModal ] = useState(false)
     const [ clientSecret, setClientSecret ] = useState('')

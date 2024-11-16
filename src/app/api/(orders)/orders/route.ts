@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const [query]: [RowDataPacket[], FieldPacket[]] = await db.query(
-            "SELECT * FROM orders o JOIN orderItems oi ON oi.orderId = o.id WHERE o.userId LIKE ? ORDER BY o.id", [userId])
+            "SELECT * FROM orders o JOIN orderItems oi ON oi.orderId = o.id WHERE o.userId LIKE ? ORDER BY o.createdAt DESC", [userId])
 
         if(!query.length) return NextResponse.json({ message: "Error selecting orders" }, { status: 500 })
         
