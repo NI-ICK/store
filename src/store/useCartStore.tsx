@@ -36,7 +36,7 @@ export const useCartStore = create<Cart>((set, get) => ({
         const updatedCartItems = [...state.cartItems, { ...product, quantity: 1 }]
         const existingItem = state.cartItems.find(cartItem => cartItem.id === product.id)
         if(existingItem) {
-            axios.post("api/cart/update", { productId: existingItem.id, userId: state.userId }) 
+            axios.post("/api/cart/update", { productId: existingItem.id, userId: state.userId }) 
 
             set({ 
                 totalPrice: calculateTotalPrice([...state.cartItems, existingItem]), 
@@ -44,7 +44,7 @@ export const useCartStore = create<Cart>((set, get) => ({
             })
         }
 
-        axios.post("api/cart/add", { productId: product.id, userId: state.userId }) 
+        axios.post("/api/cart/add", { productId: product.id, userId: state.userId }) 
         set({ totalPrice: calculateTotalPrice(updatedCartItems), cartItems: updatedCartItems })
     },
     removeCartItem: async (product) => {
@@ -53,7 +53,7 @@ export const useCartStore = create<Cart>((set, get) => ({
         const foundProduct = state.cartItems.find(cartItem => cartItem.id === product.id)
         if(foundProduct) {
             const updatedCartItems = state.cartItems.filter(cartItem => cartItem.id !== foundProduct.id)
-            axios.post("api/cart/remove", { productId: product.id, userId: state.userId }) 
+            axios.post("/api/cart/remove", { productId: product.id, userId: state.userId }) 
 
             set({ totalPrice: calculateTotalPrice(updatedCartItems), cartItems: updatedCartItems })
         }
@@ -61,7 +61,7 @@ export const useCartStore = create<Cart>((set, get) => ({
     changeItemQuantiy: async (product, newQuantity) => {
         const state = get()
 
-        axios.post("api/cart/update", { productId: product.id, userId: state.userId, newQuantity }) 
+        axios.post("/api/cart/update", { productId: product.id, userId: state.userId, newQuantity }) 
 
         const updatedCartItems = state.cartItems.map(cartItem => cartItem.id === product.id ? { ...cartItem, quantity: Math.max(newQuantity, 0) } : cartItem)
 

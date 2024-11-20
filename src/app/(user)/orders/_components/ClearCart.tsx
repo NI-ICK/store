@@ -21,14 +21,16 @@ export const ClearCart = ({ orders }: { orders: Order[] }) => {
     }, [])
 
     useEffect(() => {
-        const cartItemsData = cartItems.map(item => { return { id: item.id, quantity: item.quantity }})
-        const ordersData = orders.map(order =>
-            order.orderItems.map(item => ({ id: item.product.id, quantity: item.quantity }))
-        )
-
-        const matches = checkMatch(cartItemsData, ordersData)
-        if(matches) emptyCartItems()
-    }, [cartItems, checkMatch, emptyCartItems, orders])
+        if(cartItems) {
+            const cartItemsData = cartItems.map(item => { return { id: item.id, quantity: item.quantity }})
+            const ordersData = orders.map(order =>
+                order.orderItems.map(item => ({ id: item.product.id, quantity: item.quantity }))
+            )
+    
+            const matches = checkMatch(cartItemsData, ordersData)
+            if(matches) emptyCartItems()
+        }
+    }, [checkMatch, emptyCartItems, orders])
 
     return null
 }
