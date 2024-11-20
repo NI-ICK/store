@@ -20,14 +20,7 @@ export function RecomendedProducts({ products }: { products: Product[] }) {
     useEffect(() => {
         handleNumberOfElements()
         window.addEventListener('resize', () => handleNumberOfElements())
-
-        // productRefs.current.forEach(ref => { if(ref) observer.observe(ref) })
-
-        return () => {
-            window.removeEventListener('resize', () => handleNumberOfElements())
-
-            // productRefs.current.forEach(ref => { if(ref) observer.unobserve(ref) })
-        }
+        return () => window.removeEventListener('resize', () => handleNumberOfElements())
     }, [])
 
     const handleProductTitle = (title: string) => {

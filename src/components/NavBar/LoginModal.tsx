@@ -2,12 +2,11 @@
 
 import { EyeIcon } from '@/assets/EyeIcon'
 import { SlashEyeIcon } from '@/assets/SlashEyeIcon'
-import { useUserStore } from '@/store/useUserStore'
 import styles from '@/styles/modules/NavBar.module.scss'
-import { fetchUser } from '@/utils/fetchData'
 import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
 import { useMainStore } from '@/store/useMainStore'
+import { useUserStore } from '@/store/useUserStore'
 
 type Props = {
     showLoginModal: boolean
@@ -36,8 +35,7 @@ export function LoginModal({ showLoginModal, setShowLoginModal, setShowRegisterM
         e.preventDefault()
         try {
             await axios.post('/api/login', formData)
-            const user = await fetchUser()
-            setUser(user)
+            setUser()
         } catch(error) {
             console.log(error)
             let message = 'Unknown Error'
@@ -83,7 +81,7 @@ export function LoginModal({ showLoginModal, setShowLoginModal, setShowRegisterM
                     </div>
                     <button type='submit'>Login</button>
                 </form>
-                <p>Don't have an account?<span onClick={() => {
+                <p>Don&apos;t have an account?<span onClick={() => {
                     setShowRegisterModal(true)
                     setShowLoginModal(false)
                     }} tabIndex={0} 

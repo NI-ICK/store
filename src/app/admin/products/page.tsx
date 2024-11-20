@@ -6,7 +6,7 @@ import { MobileDetails } from './_components/MobileDetails'
 
 export default async function ProductPage(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const searchParams = await props.searchParams
-    let currentPage = parseInt(searchParams.p as string) || 1
+    const currentPage = parseInt(searchParams.p as string) || 1
     let numberOfPages = 0
     let products: Product[] = []
 

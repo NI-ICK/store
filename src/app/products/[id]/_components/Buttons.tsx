@@ -6,8 +6,8 @@ import { useCartStore } from '@/store/useCartStore'
 import { useWishlistStore } from '@/store/useWishlistStore'
 import { useEffect, useState } from 'react'
 import styles from '@/styles/modules/ProductDetails.module.scss'
-import { useUserStore } from '@/store/useUserStore'
 import { XIcon } from '@/assets/XIcon'
+import { useUserStore } from '@/store/useUserStore'
 
 type CartItem = Product & {
     quantity: number
@@ -28,24 +28,28 @@ export function Buttons({ product }: { product: Product }) {
     useEffect(() => {   
         const found = wishlistItems.find(item => item.id === product.id)
         if(found) setInWishlist(true)
-    }, [wishlistItems])
+    }, [wishlistItems, product.id])
 
     useEffect(() => {
         const item = cartItems.find(item => item.id === product.id)
         if(item) setItemInCart(item)
-    }, [cartItems])
+    }, [cartItems, product.id])
 
     if(!user) return null
 
     return <>
         <div className={styles.buttons}>
-            {!inWishlist ? (<div tabIndex={0} className={styles.wishlistBtn} onClick={() => { addWishlistItem(product), setInWishlist(true) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
+            {!inWishlist ? (<div tabIndex={0} className={styles.wishlistBtn} onClick={() => { 
+                addWishlistItem(product)
+                setInWishlist(true) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
                 <span>
                     <WishlistIcon />
                 </span>
                 <p>Add to Wishlist</p>
             </div> ) : (
-            <div tabIndex={0} className={styles.wishlistBtn} onClick={() => { removeWishlistItem(product), setInWishlist(false) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
+            <div tabIndex={0} className={styles.wishlistBtn} onClick={() => { 
+                removeWishlistItem(product)
+                setInWishlist(false) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
                 <span className={styles.remove}>
                     <WishlistIcon />
                 </span>
@@ -71,7 +75,9 @@ export function Buttons({ product }: { product: Product }) {
                         if(Number(e.target.value) > itemInCart.stock && Number(e.target.value) !== 0) changeItemQuantiy(itemInCart, itemInCart.stock)  
                         }}/>
                 </div>
-                <span className={styles.remove} tabIndex={0} onClick={() => { removeCartItem(product), setItemInCart(null) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
+                <span className={styles.remove} tabIndex={0} onClick={() => { 
+                    removeCartItem(product)
+                    setItemInCart(null) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
                     <XIcon />
                 </span>
                 <p className={styles.stock}>In stock: {product.stock}</p>

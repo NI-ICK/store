@@ -1,17 +1,17 @@
+import { getUserFromToken } from "@/utils/getUserFromToken"
 import { create } from "zustand"
 
 type UserStore = {
-    user: User | null
-    loading: boolean
-    setUser: (user: User) => void
+    user: UserPayload | null
+    setUser: () => void
     logoutUser: () => void
-    setLoading: (value: boolean) => void
 }
 
 export const useUserStore = create<UserStore>(set => ({
     user: null,
-    loading: true,
-    setUser: (user) => set({ user }),
+    setUser: async () => {
+        const user = await getUserFromToken()
+        set({ user })
+    },
     logoutUser: () => set({ user: null }),
-    setLoading: (value) => set({ loading: value })
 }))

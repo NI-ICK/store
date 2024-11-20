@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import styles from '@/styles/modules/NavBar.module.scss'
-import { useUserStore } from "@/store/useUserStore"
 import { useRouter } from "next/navigation"
 import axios from "axios"
+import { useUserStore } from "@/store/useUserStore"
 
 type Props = {
     showSettingsModal: boolean
@@ -14,8 +14,8 @@ type Props = {
 }
 
 export function SettingsModal({ showSettingsModal, setShowSettingsModal, isMobile, isAdmin }: Props) {
-    const logoutUser = useUserStore(state => state.logoutUser)
     const router = useRouter()
+    const logoutUser = useUserStore(state => state.logoutUser)
 
     const handleLogout = () => {
         logoutUser()

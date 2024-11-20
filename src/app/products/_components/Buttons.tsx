@@ -19,7 +19,7 @@ export function Buttons({ product }: { product: Product }) {
     useEffect(() => {
         const found = wishlistItems.find(item => item.id === product.id)
         if(found) setInWishlist(true)
-    }, [wishlistItems])
+    }, [wishlistItems, product.id])
 
     if(!user) return null
 

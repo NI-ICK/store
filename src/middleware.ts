@@ -1,16 +1,15 @@
-import { fetchUser } from "@/utils/fetchData"
 import { NextRequest, NextResponse } from "next/server"
+import { getUserFromToken } from "./utils/getUserFromToken"
 
 export default async function middleware(req: NextRequest) {
-    const user = await fetchUser(true)
+    const routes = [ '/cart', '/wishlist', '/settings', '/orders', '/admin', '/admin/:path' ]
 
-    if(!user) return NextResponse.redirect(new URL('/404', req.nextUrl))
+    if(routes.includes(req.nextUrl.pathname)) {
+        const user = await getUserFromToken()
     
-    if(!user.isAdmin && req.nextUrl.pathname.startsWith('/admin')) return NextResponse.redirect(new URL('/404', req.nextUrl))
-
+        if(!user) return NextResponse.redirect(new URL('/404', req.nextUrl))
+        
+        if(!user.isAdmin && req.nextUrl.pathname.startsWith('/admin')) return NextResponse.redirect(new URL('/404', req.nextUrl))
+    }
     return NextResponse.next()
-}
-
-export const config = {
-    matcher: [ '/cart', '/wishlist', '/settings', '/orders', '/admin', '/admin/:path' ]
 }

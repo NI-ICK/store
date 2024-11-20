@@ -4,7 +4,7 @@ import styles from '@/styles/modules/Admin.module.scss'
 type UserData = User & { userOrders: number }
 
 export default async function UserPage() {
-    const userData: UserData[] = await fetchUserData()
+    const userData: UserData[] = await fetchUserData() || []
 
     return <>
         <div className={styles.users}>

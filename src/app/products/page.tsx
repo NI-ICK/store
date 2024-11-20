@@ -2,15 +2,15 @@ import styles from '@/styles/modules/Products.module.scss'
 import Fuse from "fuse.js"
 import Link from 'next/link'
 import { fetchAllProductsByPage, fetchProductsByCategory, fetchProductsByQuery, fetchCategories } from "@/utils/fetchData"
-import { XIcon } from '@/assets/XIcon'
 import { Buttons } from './_components/Buttons'
 import Image from 'next/image'
 import { Filters } from './_components/Filters'
+import { SearchedQuery } from './_components/SearchedQuery'
 
 export default async function Products(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const searchParams = await props.searchParams
     const query = searchParams.q as string 
-    let category = searchParams.c as string 
+    const category = searchParams.c as string 
     const price = searchParams.pr as string 
     const priceFrom = price?.split('-')[0] as string 
     const priceTo = price?.split('-')[1] as string 
@@ -30,19 +30,19 @@ export default async function Products(props: { searchParams: Promise<{ [key: st
 
     const getProducts = async () => {
         if(category) {
-            let { products: fetchedProducts, total }: { products: Product[], total: number } = await fetchProductsByCategory(category, currentPage)
+            const data: { products: Product[], total: number } = await fetchProductsByCategory(category, currentPage)
 
-            numberOfPages = Math.ceil(total / 30)
+            numberOfPages = Math.ceil(data.total / 30)
 
             if(query) {
-                const fuse = new Fuse(fetchedProducts, {
+                const fuse = new Fuse(data.products, {
                     keys: ['title', 'description', 'tags'],
                     threshold: 0.3
                 })
                 const result = fuse.search(query)
-                fetchedProducts = result.map(resultItem => resultItem.item) 
+                data.products = result.map(resultItem => resultItem.item) 
             }
-            return products = fetchedProducts
+            return products = data.products
         }
 
         if(query) {
@@ -73,10 +73,7 @@ export default async function Products(props: { searchParams: Promise<{ [key: st
         <div className={styles.mainContainer}>
             <Filters categoryList={categoryList} query={query}/>
             <div className={styles.container}>
-                {query && <div className={styles.qResult}>
-                    <h2>Showing results for: "{query}"</h2>
-                    <Link href="/products"><XIcon /></Link>
-                </div>}
+                <SearchedQuery query={query}/>
                 <div className={styles.products}>
                     {filteredProducts.length > 0 ? (filteredProducts
                         .map((product, index) => (

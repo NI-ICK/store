@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Event received successfully" }, { status: 200 })
     } catch(error) {
         console.log(error)
-        let message = "Unknow error"
+        let message = "Unknown error"
         if(error instanceof Error) message = error.message
         return NextResponse.json({ message }, { status: 500 })
     } finally {

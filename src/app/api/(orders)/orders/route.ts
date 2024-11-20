@@ -3,6 +3,22 @@ import { stripe } from "@/utils/stripe"
 import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2"
 import { NextRequest, NextResponse } from "next/server"
 
+type OrdersMap = {
+    id: string
+    createdAt: Date
+    orderItems: OrdersItemMap[]
+    status: string
+    userId: string
+    totalPrice: number
+    totalQuantity: number
+}
+
+type OrdersItemMap = {
+    id: string
+    productId: number
+    quantity: number
+}
+
 export async function GET(req: NextRequest) {
     let db
     try {
@@ -16,7 +32,7 @@ export async function GET(req: NextRequest) {
 
         if(!query.length) return NextResponse.json({ message: "Error selecting orders" }, { status: 500 })
         
-        const ordersMap: { [key: string]: any } = {}
+        const ordersMap: { [key: string]: OrdersMap } = {}
 
         query.forEach((result) => {
             const { orderId, ...orderItem } = result
@@ -41,7 +57,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ orders: ordersArray }, { status: 200 })
     } catch(error) {
         console.log(error)
-        let message = "Unknow error"
+        let message = "Unknown error"
         if(error instanceof Error) message = error.message
         return NextResponse.json({ message }, { status: 500 })
     } finally {

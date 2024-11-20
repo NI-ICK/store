@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
-import jwt, { JwtPayload } from 'jsonwebtoken'
 import { connectToDatabase } from "@/utils/connectToDatabase"
 import { FieldPacket, ResultSetHeader } from "mysql2"
 import { cookies } from "next/headers"
 import bcrypt from 'bcrypt'
+import { jwtVerify } from "jose"
 
 export async function GET(req: NextRequest) {
     let db
@@ -11,13 +11,14 @@ export async function GET(req: NextRequest) {
         const token = req.headers.get('Authorization')?.split(' ')[1]
         if(!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
 
-        const validToken = jwt.verify(token, `${process.env.JWT_SECRET}`) as JwtPayload
-        if(!validToken) return NextResponse.json({ message: "Invalid token" }, { status: 401 })
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+        const { payload } = await jwtVerify(token, secret, { algorithms: ["HS256"] })
+        if(!payload) return NextResponse.json({ message: "Invalid token" }, { status: 401 })
 
         db = await connectToDatabase()
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
-        const [user]: [UserQuery[], FieldPacket[]] = await db.query("SELECT id, name, email, isAdmin FROM users WHERE id LIKE ?", [validToken.id]) 
+        const [user]: [UserQuery[], FieldPacket[]] = await db.query("SELECT id, name, email, isAdmin FROM users WHERE id LIKE ?", [payload.id]) 
         if(!user.length) return NextResponse.json({ message: "User not found" }, { status: 404 })
             
         return NextResponse.json(user[0], { status: 200 })
@@ -45,10 +46,21 @@ export async function PUT(req: NextRequest) {
 
         if(password) hashedPassword = await bcrypt.hash(password, 10)
 
-        if(name) fields.push('name = ?'), values.push(name)
-        if(email) fields.push('email = ?'), values.push(email)
-        if(hashedPassword) fields.push('password = ?'), values.push(hashedPassword)
-
+        if(name) {
+            fields.push('name = ?')
+            values.push(name)
+        }
+    
+        if(email) {
+            fields.push('email = ?')
+            values.push(email)
+        }
+    
+        if(hashedPassword) {
+            fields.push('password = ?')
+            values.push(hashedPassword)
+        }
+        
         const [query]: [ResultSetHeader, FieldPacket[]] = await db.query(`UPDATE users SET ${fields.join(', ')} WHERE id LIKE ?`, [ ...values, id ])
         if(query.affectedRows === 0) return NextResponse.json({ message: "Error updating user" }, { status: 500 })
 

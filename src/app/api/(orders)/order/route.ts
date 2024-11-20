@@ -2,6 +2,22 @@ import { connectToDatabase } from "@/utils/connectToDatabase"
 import { FieldPacket, RowDataPacket } from "mysql2"
 import { NextRequest, NextResponse } from "next/server"
 
+type OrderMap = {
+    id: string
+    createdAt: Date
+    orderItems: OrderItemMap[]
+    status: string
+    userId: string
+    paymentIntentId: string
+    totalPrice: number
+}
+
+type OrderItemMap = {
+    id: string
+    productId: number
+    quantity: number
+}
+
 export async function GET(req: NextRequest) {
     let db
     try {
@@ -14,7 +30,7 @@ export async function GET(req: NextRequest) {
             "SELECT * FROM orders o JOIN orderItems oi ON oi.orderId = o.id WHERE o.id LIKE ?", [orderId])
         if(!query.length) return NextResponse.json({ message: "Error selecting order" }, { status: 500 })
 
-        const orderMap: { [key: string]: any } = {}
+        const orderMap: { [key: string]: OrderMap } = {}
         query.forEach(result => {
             const { orderId, ...orderItem } = result
             

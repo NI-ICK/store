@@ -66,6 +66,12 @@ declare global {
         productId: number
         quantity: number
     }
+
+    type UserPayload = {
+        id: string
+        name: string
+        isAdmin: number
+    }
 }
 
 export {}

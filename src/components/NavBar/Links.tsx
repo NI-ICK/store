@@ -6,7 +6,6 @@ import { RegisterModal } from "./RegisterModal"
 import Link from "next/link"
 import { UserIcon } from "@/assets/UserIcon"
 import styles from '@/styles/modules/NavBar.module.scss'
-import { useUserStore } from "@/store/useUserStore"
 import { WishlistIcon } from "@/assets/WishlistIcon"
 import { CartIcon } from "@/assets/CartIcon"
 import { SettingsModal } from "./SettingsModal"
@@ -14,15 +13,21 @@ import { Popup } from "../Popup"
 import { AdminIcon } from "@/assets/AdminIcon"
 import { usePathname } from "next/navigation"
 import { HomeIcon } from "@/assets/HomeIcon"
+import { useUserStore } from "@/store/useUserStore"
+import { useWishlistStore } from "@/store/useWishlistStore"
+import { useCartStore } from "@/store/useCartStore"
 
-export function Links({ loggedUser }: { loggedUser: User | null }) {
-    const [ showLoginModal ,setShowLoginModal ] = useState(false)
+export function Links() {
+    const [ showLoginModal, setShowLoginModal ] = useState(false)
     const [ showRegisterModal, setShowRegisterModal ] = useState(false)
     const [ showSettingsModal, setShowSettingsModal ] = useState(false)
     const [ isMobile, setIsMobile ] = useState(false)
     const user = useUserStore(state => state.user)
     const setUser = useUserStore(state => state.setUser)
-    const setLoading = useUserStore(state => state.setLoading)
+    const setUserIdW = useWishlistStore(state => state.setUserId)
+    const getWishlistItems = useWishlistStore(state => state.getWishlistItems)
+    const setUserIdC = useCartStore(state => state.setUserId)
+    const getCartItems = useCartStore(state => state.getCartItems)
     const path = usePathname()
 
     const handleMobile = () => {
@@ -30,16 +35,20 @@ export function Links({ loggedUser }: { loggedUser: User | null }) {
         setIsMobile(false)
     }
 
+    const handleStore = async () => {
+        await setUser() 
+        await setUserIdW()
+        await getWishlistItems()
+        await setUserIdC()
+        await getCartItems()
+    }
+
     useEffect(() => {
+        handleStore()
         handleMobile()
         window.addEventListener('resize', () => { handleMobile() })
         return () => window.removeEventListener('resize', () => { handleMobile() })
     }, [])
-
-    useEffect(() => {
-        if(loggedUser) setUser(loggedUser), setLoading(false)
-        if(!loggedUser) setLoading(false)
-    }, [loggedUser])
 
     const handleUserName = (name: string) => {
         return name.length > 10 ? name.substring(0, 7) + '...' : name

@@ -12,7 +12,7 @@ export default function Wishlist() {
     const wishlistItems = useWishlistStore(state => state.wishlistItems)
     const removeWishlistItem = useWishlistStore(state => state.removeWishlistItem)
     const addCartItem = useCartStore(state => state.addCartItem)
-    
+
     const handleProductPrice = (product: Product) => {
         return <span>{'$ ' + (product.price * (1 - product.discountPercentage / 100)).toFixed(2)}</span>
     }

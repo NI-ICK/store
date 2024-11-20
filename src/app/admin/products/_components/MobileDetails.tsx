@@ -17,7 +17,10 @@ export function MobileDetails({ product }: { product: Product }) {
     
     return <>
         <div className={styles.mobileActive} onClick={() => setShowModal(true)}>
-            {showModal ? <div className={styles.productBackdrop} onClick={(e) => { setShowModal(false), e.stopPropagation() }}>
+            {showModal ? <div className={styles.productBackdrop} onClick={(e) => { 
+                setShowModal(false)
+                e.stopPropagation() 
+                }}>
                 <div className={styles.productModal} onClick={(e) => e.stopPropagation()}>
                     <h2>{product.title}</h2>
                     <p>ID: <span>{product.id}</span></p>

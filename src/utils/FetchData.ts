@@ -1,7 +1,6 @@
 "use server"
 
 import axios from "axios"
-import { cookies } from "next/headers"
 
 export const fetchAllProductsByPage = async (page: number) => {
     try {
@@ -15,6 +14,7 @@ export const fetchAllProductsByPage = async (page: number) => {
 
 export const fetchSingleProduct = async (id: number) => {
     try {
+        if(!id) return
         const response = await axios.get(`https://dummyjson.com/products/${id}`)
         return response.data
     } catch(error) {
@@ -61,17 +61,6 @@ export const fetchAllProducts = async () => {
 }
 
 //
-
-export const fetchUser = async (middleware?: boolean) => {
-    try {
-        const token = ((await cookies()).get('token')?.value)
-        const response = await axios.get(`${middleware ? process.env.WEBSITE_URL : ''}/api/user`, { headers: { Authorization: `Bearer: ${token}` }})
-        return response.data
-    } catch(error) {
-        console.log(error)
-        return null
-    }
-}
 
 export const fetchUserData = async () => {
     try {
@@ -133,5 +122,6 @@ export const fetchAdminData = async () => {
         return response.data
     } catch(error) {
         console.log(error)
+        return null
     }
 }

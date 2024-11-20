@@ -1,16 +1,16 @@
 import { fetchUserOrders, fetchSingleProduct } from "@/utils/fetchData"
 import styles from '@/styles/modules/User.module.scss'
-import { getUserId } from "@/utils/getUserId"
+import { getUserFromToken } from "@/utils/getUserFromToken"
 import { ArrowIcon } from "@/assets/ArrowIcon"
 import Link from "next/link"
 import Image from "next/image"
 import { ClearCart } from "./_components/ClearCart"
 
 const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
-    const userId = await getUserId()
-    if(!userId) return []
+    const user = await getUserFromToken()
+    if(!user) return []
 
-    const response = await fetchUserOrders(userId)
+    const response = await fetchUserOrders(user.id)
     if(!response) return []
     return await Promise.all(
         response.orders.map(async (order: Order) => {

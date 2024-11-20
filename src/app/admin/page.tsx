@@ -16,7 +16,13 @@ type StatusData = {
 
 export default async function Dashboard() {
     const productCount = 194 // The only way to get product count from DummyJSON is to fetch all products and it's really bad for performence 
-    const data: Data = await fetchAdminData()
+    const data: Data = await fetchAdminData() || {
+        orderCount: 0,
+        userCount: 0,
+        adminUserCount: 0,
+        totalOrderPrice: 0,
+        statusData: []
+    }
 
     return <>
         <div className={styles.dashboard}>

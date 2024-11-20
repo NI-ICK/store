@@ -2,8 +2,8 @@ import { connectToDatabase } from "@/utils/connectToDatabase"
 import { FieldPacket } from "mysql2"
 import { NextRequest, NextResponse } from "next/server"
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import { cookies } from "next/headers"
+import { SignJWT } from "jose"
 
 export async function POST(req: NextRequest) {
     let db
@@ -19,11 +19,11 @@ export async function POST(req: NextRequest) {
         const validPassword = await bcrypt.compare(password, user[0].password)
         if(!validPassword) return NextResponse.json({ message: "Invalid Password" }, { status: 401 })
 
-        const token = jwt.sign(
-            { id: user[0].id },
-            `${process.env.JWT_SECRET}`,
-            { expiresIn: '10h' }
-        );
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+        const token = await new SignJWT({ id: user[0].id, name: user[0].name, isAdmin: user[0].isAdmin })
+            .setProtectedHeader({ alg: "HS256"})
+            .setExpirationTime("10h")
+            .sign(secret);
         (await cookies()).set({
             name: 'token',
             value: token,

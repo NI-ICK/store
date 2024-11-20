@@ -5,18 +5,18 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe
 import { useState } from 'react'
 import { useCartStore } from '@/store/useCartStore'
 import styles from '@/styles/modules/Cart.module.scss'
-import { useUserStore } from '@/store/useUserStore'
 import axios from 'axios'
+import { getUserFromToken } from '@/utils/getUserFromToken'
 
 export function CheckoutButton() {
     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!)
     const cartItems = useCartStore(state => state.cartItems)
-    const user = useUserStore(state => state.user)
     const [ showModal, setShowModal ] = useState(false)
     const [ clientSecret, setClientSecret ] = useState('')
 
     const handleCheckout = async () => {
         try {
+            const user = await getUserFromToken()
             const response = await axios.post('/api/checkout', { cartItems, userId: user?.id })
             setClientSecret(response.data.session.client_secret)
             setShowModal(true)
