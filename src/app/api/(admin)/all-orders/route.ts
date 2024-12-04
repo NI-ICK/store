@@ -26,8 +26,6 @@ export async function GET() {
 
         const [query]: [RowDataPacket[], FieldPacket[]] = await db.query(
             "SELECT * FROM orders o JOIN orderItems oi ON oi.orderId = o.id ORDER BY o.createdAt DESC")
-
-        if(!query.length) return NextResponse.json({ message: "Error selecting orders" }, { status: 500 })
         
         const ordersMap: { [key: string]: OrdersMap } = {}
 

@@ -1,6 +1,6 @@
 "use server"
 
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 
 export const fetchAllProductsByPage = async (page: number) => {
     try {
@@ -67,7 +67,9 @@ export const fetchUserData = async () => {
         const response = await axios.get('/api/users')
         return response.data.userData
     } catch(error) {
-        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
     }
 }
 
@@ -121,7 +123,9 @@ export const fetchAdminData = async () => {
         const response = await axios.get('/api/data')
         return response.data
     } catch(error) {
-        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
         return null
     }
 }

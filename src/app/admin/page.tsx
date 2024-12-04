@@ -29,7 +29,7 @@ export default async function Dashboard() {
             <div className={styles.card}>
                 <h2>Order Overview</h2>
                 <p>Total Orders: <span>{data.orderCount}</span></p>
-                <p>Total Value: <span>${data.totalOrderPrice.toFixed(2)}</span></p>
+                <p>Total Value: <span>${data.totalOrderPrice || 0}</span></p>
                 <h3>Order Status Breakdown</h3>
                 {data.statusData.map((data, index) => (
                     <p key={index}>{data.status} Orders: <span>{data.statusCount}</span></p>
