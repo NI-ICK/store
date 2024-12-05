@@ -1,5 +1,6 @@
 import styles from '@/styles/modules/Admin.module.scss'
 import { fetchAdminData } from '@/utils/fetchData'
+import { cookies } from 'next/headers'
 
 type Data = {
     orderCount: number
@@ -23,6 +24,7 @@ export default async function Dashboard() {
         totalOrderPrice: 0,
         statusData: []
     }
+    cookies()
 
     return <>
         <div className={styles.dashboard}>

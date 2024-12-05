@@ -138,6 +138,7 @@ export const fetchAdminData = async () => {
         let message = "Unknown error"
         if(error instanceof AxiosError) message = error.response?.data.message
         console.log(message)
+        console.log(error)
         return null
     }
 }

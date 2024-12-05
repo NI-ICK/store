@@ -1,11 +1,12 @@
 import { fetchUserData } from "@/utils/fetchData"
 import styles from '@/styles/modules/Admin.module.scss'
+import { cookies } from "next/headers"
 
 type UserData = User & { userOrders: number }
 
 export default async function UserPage() {
     const userData: UserData[] = await fetchUserData() || []
-
+    cookies()
     return <>
         <div className={styles.users}>
             {userData.map((user, index) => (

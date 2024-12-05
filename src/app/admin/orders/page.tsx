@@ -1,6 +1,7 @@
 import styles from '@/styles/modules/Admin.module.scss'
 import { fetchAllOrders, fetchSingleProduct } from '@/utils/fetchData'
 import { AdminRefundButton } from './_components/AdminRefundButton'
+import { cookies } from 'next/headers'
 
 const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
     const response = await fetchAllOrders()
@@ -21,7 +22,7 @@ const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
 
 export default async function OrderPage() {
     const orders = await fetchUserOrdersWithProducts()
-
+    cookies()
     const handleDate = (order: Order) => {
         const date = order.createdAt.toString().split('T')[0].replace(/-/g, '.')
         return <p>Order date: <span>{date}</span></p>
