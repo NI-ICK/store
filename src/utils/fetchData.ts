@@ -70,6 +70,7 @@ export const fetchUserData = async () => {
         let message = "Unknown error"
         if(error instanceof AxiosError) message = error.response?.data.message
         console.log(message)
+        console.log(error)
     }
 }
 
@@ -78,7 +79,9 @@ export const fetchUserOrders = async (userId: string) => {
         const response = await axios.get('/api/orders', { params: { userId }})
         return response.data
     } catch(error) {
-        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
     }
 }
 
@@ -87,6 +90,9 @@ export const fetchAllOrders = async () => {
         const response = await axios.get('/api/all-orders')
         return response.data
     } catch(error) {
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
         console.log(error)
     }
 }
@@ -96,7 +102,9 @@ export const fetchSingleOrder = async (orderId: string) => {
         const response = await axios.get('/api/order', { params: { orderId }})
         return response.data
     } catch(error) {
-        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
     }
 }
 
@@ -105,7 +113,9 @@ export const fetchOrderCount = async () => {
         const response = await axios.get('/api/orderCount')
         return response.data.count
     } catch(error) {
-        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
     }
 }
 
@@ -114,7 +124,9 @@ export const fetchUserCount = async () => {
         const response = await axios.get('/api/userCount')
         return response.data.count
     } catch(error) {
-        console.log(error)
+        let message = "Unknown error"
+        if(error instanceof AxiosError) message = error.response?.data.message
+        console.log(message)
     }
 }
 

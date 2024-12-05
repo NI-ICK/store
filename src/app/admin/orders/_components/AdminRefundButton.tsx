@@ -9,7 +9,7 @@ export function AdminRefundButton({ orderId, paymentIntentId, status }: { orderI
 
     const handleRefund = async () => {
         try {     
-            await axios.put('/api/orders', { orderId, paymentIntentId})
+            await axios.put('/api/orders', { orderId, paymentIntentId })
             setShowModal(false)
         } catch(error) {
             console.log(error)

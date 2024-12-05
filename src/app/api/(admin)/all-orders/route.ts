@@ -9,7 +9,7 @@ type OrdersMap = {
     status: string
     userId: string
     totalPrice: number
-    totalQuantity: number
+    paymentIntentId: string
 }
 
 type OrdersItemMap = {
@@ -36,7 +36,7 @@ export async function GET() {
                 ordersMap[orderId] = {
                     id: result.orderId,
                     totalPrice: result.totalPrice,
-                    totalQuantity: result.totalQuantity,
+                    paymentIntentId: result.paymentIntentId,
                     userId: result.userId,
                     createdAt: result.createdAt,
                     status: result.status,
