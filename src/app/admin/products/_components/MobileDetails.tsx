@@ -16,7 +16,7 @@ export function MobileDetails({ product }: { product: Product }) {
     }
     
     return <>
-        <div className={styles.mobileActive} onClick={() => setShowModal(true)}>
+        <div className={styles.mobileActive} onClick={() => setShowModal(true)} aria-label='details'>
             {showModal ? <div className={styles.productBackdrop} onClick={(e) => { 
                 setShowModal(false)
                 e.stopPropagation() 

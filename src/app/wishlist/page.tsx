@@ -23,7 +23,7 @@ export default function Wishlist() {
                 <div className={styles.items}>
                 {wishlistItems.map((item, index) => {
                     return (
-                    <div key={index} className={styles.product}>
+                    <div key={index} className={styles.product} aria-label='product'>
                         <Link href={`/products/${item.id}`} tabIndex={-1}><Image src={item.thumbnail} alt={item.title} width={112} height={112}/></Link>
                         <div>
                             <div className={styles.details}>

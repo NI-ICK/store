@@ -19,12 +19,12 @@ const fetchSingleOrderWithProducts = async (id: string): Promise<Order | null> =
     return { ...response, orderItems: orderItemsWithProducts}
 }
 
-export default async function OrderPage(props: { params: Promise<{ id: string }>}) {
+export default async function OrderPage(props: { params: { id: string }}) {
     const params = await props.params
     const order: Order | null = await fetchSingleOrderWithProducts(params.id)
     if(!order) notFound()
 
-    const handleDate = (order: Order) => {
+    const handleDate = (order: Order) => { // Works only for MySQL CURRENT_TIMESTAMP
         const date = order.createdAt.toString().split('T')[0].replace(/-/g, '.')
         return <p>Order date <span>{date}</span></p>
     }

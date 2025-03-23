@@ -25,16 +25,16 @@ declare global {
         reviews: {
             rating: number
             comment: string
-            date: Date 
+            date: string 
             reviewerName: string
             reviewerEmail: string
         }[]
         returnPolicy: string
         minimumOrderQuantity: number
         meta: {
-            createdAt: Date
-            updatedAt: Date
-            barcode: number
+            createdAt: string
+            updatedAt: string
+            barcode: string
             qrCode: string
         }
         images: string[]
@@ -51,7 +51,7 @@ declare global {
 
     type Order = {
         id: string
-        createdAt: Date
+        createdAt: string
         orderId: string
         orderItems: OrderItem[]
         status: string

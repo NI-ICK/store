@@ -41,7 +41,7 @@ export function Buttons({ product }: { product: Product }) {
         <div className={styles.buttons}>
             {!inWishlist ? (<div tabIndex={0} className={styles.wishlistBtn} onClick={() => { 
                 addWishlistItem(product)
-                setInWishlist(true) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
+                setInWishlist(true) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} aria-label='add-to-wishlist'>
                 <span>
                     <WishlistIcon />
                 </span>
@@ -49,14 +49,14 @@ export function Buttons({ product }: { product: Product }) {
             </div> ) : (
             <div tabIndex={0} className={styles.wishlistBtn} onClick={() => { 
                 removeWishlistItem(product)
-                setInWishlist(false) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
+                setInWishlist(false) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} aria-label='remove-from-wishlist'>
                 <span className={styles.remove}>
                     <WishlistIcon />
                 </span>
                 <p>Remove from Wishlist</p>
             </div>)}
             {!itemInCart ? (<div className={styles.wrapper}>
-                <div tabIndex={0} className={styles.cartBtn} onClick={() => addCartItem(product)} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
+                <div tabIndex={0} className={styles.cartBtn} onClick={() => addCartItem(product)} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} aria-label='add-to-cart'>
                     <span>
                         <CartIcon />
                     </span>
@@ -71,11 +71,13 @@ export function Buttons({ product }: { product: Product }) {
                     </span>
                     <p>In cart: </p>
                     <input type="number" value={itemInCart.quantity} onChange={(e) => { 
-                        if(Number(e.target.value) <= 99 && Number(e.target.value) !== 0 && Number(e.target.value) <= itemInCart.stock) changeItemQuantiy(itemInCart, Number(e.target.value)) 
-                        if(Number(e.target.value) > itemInCart.stock && Number(e.target.value) !== 0) changeItemQuantiy(itemInCart, itemInCart.stock)  
-                        }}/>
+                        const value = Number(e.target.value)
+                        if(e.target.value === "" || value === 0) changeItemQuantiy(itemInCart, 1)
+                        if(value <= 99 && value !== 0 && value <= itemInCart.stock) changeItemQuantiy(itemInCart, value) 
+                        if(value > itemInCart.stock && value !== 0) changeItemQuantiy(itemInCart, itemInCart.stock)  
+                        }} aria-label='change-quantity'/>
                 </div>
-                <span className={styles.remove} tabIndex={0} onClick={() => { 
+                <span className={styles.remove} tabIndex={0} aria-label='remove-from-cart' onClick={() => { 
                     removeCartItem(product)
                     setItemInCart(null) }} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>
                     <XIcon />

@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { Filters } from './_components/Filters'
 import { SearchedQuery } from './_components/SearchedQuery'
 
-export default async function Products(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+export default async function Products(props: { searchParams: { [key: string]: string | string[] | undefined } }) {
     const searchParams = await props.searchParams
     const query = searchParams.q as string 
     const category = searchParams.c as string 

@@ -67,12 +67,16 @@ export function LoginModal({ showLoginModal, setShowLoginModal, setShowRegisterM
                         <input type={inputType} id='password' name='password' required value={formData.password} onChange={handleInputChange}/>
                         {inputType === 'password' ? 
                         <span 
+                            role='button'
+                            aria-label='visibility-toggle'
                             className={styles.icon}
                             onClick={() => setInputType('text')}
                             tabIndex={0} 
                             onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><EyeIcon />
                         </span> : 
                         <span 
+                            role='button'
+                            aria-label='visibility-toggle'
                             className={styles.icon}
                             onClick={() => setInputType('password')}
                             tabIndex={0} 

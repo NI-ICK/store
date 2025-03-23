@@ -6,6 +6,7 @@ type UserData = User & { userOrders: number }
 
 export default async function UserPage() {
     const userData: UserData[] = await fetchUserData() || []
+
     cookies()
     return <>
         <div className={styles.users}>

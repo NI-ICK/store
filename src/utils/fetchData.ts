@@ -68,7 +68,7 @@ export const fetchUserData = async () => {
         return response.data.userData
     } catch(error) {
         let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
+        if(error instanceof AxiosError) message = error.message
         console.log(message)
         console.log(error)
     }
@@ -80,7 +80,7 @@ export const fetchUserOrders = async (userId: string) => {
         return response.data
     } catch(error) {
         let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
+        if(error instanceof AxiosError) message = error.message
         console.log(message)
     }
 }
@@ -91,8 +91,7 @@ export const fetchAllOrders = async () => {
         return response.data
     } catch(error) {
         let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
-        console.log(message)
+        if(error instanceof AxiosError) message = error.message
         console.log(error)
     }
 }
@@ -103,29 +102,7 @@ export const fetchSingleOrder = async (orderId: string) => {
         return response.data
     } catch(error) {
         let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
-        console.log(message)
-    }
-}
-
-export const fetchOrderCount = async () => {
-    try {
-        const response = await axios.get('/api/orderCount')
-        return response.data.count
-    } catch(error) {
-        let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
-        console.log(message)
-    }
-}
-
-export const fetchUserCount = async () => {
-    try {
-        const response = await axios.get('/api/userCount')
-        return response.data.count
-    } catch(error) {
-        let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
+        if(error instanceof AxiosError) message = error.message
         console.log(message)
     }
 }
@@ -136,7 +113,7 @@ export const fetchAdminData = async () => {
         return response.data
     } catch(error) {
         let message = "Unknown error"
-        if(error instanceof AxiosError) message = error.response?.data.message
+        if(error instanceof AxiosError) message = error.message
         console.log(message)
         console.log(error)
         return null

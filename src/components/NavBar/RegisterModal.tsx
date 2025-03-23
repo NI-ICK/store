@@ -89,12 +89,16 @@ export function RegisterModal({ showRegisterModal, setShowRegisterModal }: Props
                         <input type={inputPassType} id='password' name='password' required value={formData.password} onChange={handleInputChange}/>
                         {inputPassType === 'password' ? 
                         <span 
+                            role='button'
+                            aria-label='visibility-toggle'
                             className={styles.icon}
                             onClick={() => setInputPassType('text')} 
                             tabIndex={0} 
                             onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><EyeIcon />
                         </span> : 
                         <span 
+                            role='button'
+                            aria-label='visibility-toggle'
                             className={styles.icon}
                             onClick={() => setInputPassType('password')} 
                             tabIndex={0} 
@@ -106,12 +110,16 @@ export function RegisterModal({ showRegisterModal, setShowRegisterModal }: Props
                         <input type={inputRepPassType} id='repPassword' name='repPassword' required value={formData.repPassword} onChange={handleInputChange} className={passwordError.length > 0 ? styles.error : ''}/>
                         {inputRepPassType === 'password' ? 
                         <span 
+                            role='button'
+                            aria-label='visibility-toggle'
                             className={styles.icon}
                             onClick={() => setInputRepPassType('text')} 
                             tabIndex={0} 
                             onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><EyeIcon />
                         </span> : 
                         <span 
+                            role='button'
+                            aria-label='visibility-toggle'
                             className={styles.icon}
                             onClick={() => setInputRepPassType('password')} 
                             tabIndex={0} 
@@ -122,6 +130,8 @@ export function RegisterModal({ showRegisterModal, setShowRegisterModal }: Props
                     <div className={styles.policy}>
                         <input type="checkbox" id='policy' required checked={checkboxChecked} readOnly/>
                         <span 
+                            role='checkbox'
+                            aria-label='custom-checkbox'
                             className={`${styles.customCheckbox} ${checkboxChecked ? styles.checked : ''} ${checkboxError ? styles.error : ''}`} 
                             onClick={() => setCheckboxChecked(!checkboxChecked)} 
                             tabIndex={0} 

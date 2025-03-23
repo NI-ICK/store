@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 export function PriceFilter() {
     const params = useSearchParams()
-    const price = params.get('pr')
+    const price = params.get('pr') || ''
     const qPriceFrom = price?.split('-')[0] as string 
     const qPriceTo = price?.split('-')[1] as string
     const [ priceFrom, setPriceFrom ] = useState<string>(qPriceFrom ? qPriceFrom : '')

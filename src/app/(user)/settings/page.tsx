@@ -36,7 +36,7 @@ export default function Settings() {
 
     const handleDeleteAccount = async () => {
         if(!user) return
-        await axios.delete('api/user', { data: { userId: user.id } })
+        await axios.delete('/api/user', { data: { userId: user.id } })
         logoutUser()
         router.push('/')
     }

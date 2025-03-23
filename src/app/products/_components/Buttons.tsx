@@ -28,17 +28,17 @@ export function Buttons({ product }: { product: Product }) {
             e.preventDefault()
             addWishlistItem(product)
             setInWishlist(true)
-        }} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><WishlistIcon /></span> 
+        }} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} aria-label="add-to-wishlist"><WishlistIcon /></span> 
         : 
         <span onClick={(e) => {
             e.preventDefault()
             removeWishlistItem(product)
             setInWishlist(false)
-        }} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} className={styles.remove}><WishlistIcon /></span>
+        }} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} className={styles.remove} aria-label="remove-from-wishlist"><WishlistIcon /></span>
         }
         <span onClick={(e) => {
             e.preventDefault()
             addCartItem(product)
-            }} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><CartIcon /></span>
+            }} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }} aria-label="add-to-cart"><CartIcon /></span>
     </>
 }

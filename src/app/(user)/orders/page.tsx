@@ -32,7 +32,7 @@ export default async function Orders() {
         return order.orderItems.length > 3 ? <p className={styles.more}>{order.orderItems.length - 3} More<ArrowIcon rotate={-90}/></p> : null
     } 
     
-    const handleDate = (order: Order) => {
+    const handleDate = (order: Order) => { // Works only for MySQL CURRENT_TIMESTAMP
         const date = order.createdAt.toString().split('T')[0].replace(/-/g, '.')
         return <p>Order date <span>{date}</span></p>
     }

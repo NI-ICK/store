@@ -29,3 +29,5 @@ This project is an web application developed using **Next.js** and **TypeScript*
 **Database:** MySQL
 
 **Authentication:** JWT
+
+**Testing:** Vitest

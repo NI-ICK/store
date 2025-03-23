@@ -9,9 +9,11 @@ export async function GET() {
         if(!db) return NextResponse.json({ message: "Error connecting to database" }, { status: 500 })
 
         const [users]: [RowDataPacket[], FieldPacket[]] = await db.query("SELECT * FROM users")
+        if(!users.length) return NextResponse.json({ message: "Error selecting users" }, { status: 500 })
 
-        const [ userOrders ]: [RowDataPacket[], FieldPacket[]] = await db.query("SELECT userId, COUNT(*) as userOrders FROM orders GROUP BY userId")
-        
+        const [userOrders]: [RowDataPacket[], FieldPacket[]] = await db.query("SELECT userId, COUNT(*) as userOrders FROM orders GROUP BY userId")
+        if(!userOrders.length) return NextResponse.json({ message: "Error selecting user order count" }, { status: 500 })
+
         const orderCountMap: { [key: number]: number } = {}
         userOrders.forEach(order => {
             orderCountMap[order.userId] = order.userOrders

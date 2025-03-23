@@ -31,11 +31,13 @@ export default function Cart() {
                                 <p>Price: {handleProductPrice(cartItem)}</p>
                             </div>
                             <div className={styles.info}>
-                                <input type="number" value={cartItem.quantity} onChange={(e) => { 
-                                    if(Number(e.target.value) <= 99 && Number(e.target.value) !== 0 && Number(e.target.value) <= cartItem.stock) changeItemQuantiy(cartItem, Number(e.target.value)) 
-                                    if(Number(e.target.value) > cartItem.stock && Number(e.target.value) !== 0) changeItemQuantiy(cartItem, cartItem.stock)  
+                                <input aria-label="change-quantity" type="number" value={cartItem.quantity} onChange={(e) => { 
+                                    const value = Number(e.target.value)
+                                    if(e.target.value === "" || value === 0) changeItemQuantiy(cartItem, 1)
+                                    if(value <= 99 && value !== 0 && value <= cartItem.stock) changeItemQuantiy(cartItem, value) 
+                                    if(value > cartItem.stock && value !== 0) changeItemQuantiy(cartItem, cartItem.stock)  
                                     }}/>
-                                <button onClick={() => removeCartItem(cartItem)}><XIcon /></button>
+                                <button onClick={() => removeCartItem(cartItem)} aria-label="remove-button"><XIcon /></button>
                             </div>
                         </div>
                     </div>

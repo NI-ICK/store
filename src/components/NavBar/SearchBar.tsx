@@ -28,7 +28,7 @@ export function SearchBar({ categories }: { categories: string[] }) {
     }
 
     return <>
-        <SearchModal showModal={showModal} setShowModal={setShowModal}  navigate={navigate} />
+        <SearchModal showModal={showModal} setShowModal={setShowModal} navigate={navigate} />
         <div className={styles.searchBar}> 
             <input type="text" placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => { if(e.key === "Enter") navigate() }}/>
             <div className={styles.dropdownBtn} onClick={() => setShowCategories(!showCategories)} tabIndex={0} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}>

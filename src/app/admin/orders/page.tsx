@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 
 const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
     const response = await fetchAllOrders()
+
     if(!response) return []
     
     return await Promise.all(
@@ -23,12 +24,12 @@ const fetchUserOrdersWithProducts = async (): Promise<Order[]> => {
 export default async function OrderPage() {
     const orders = await fetchUserOrdersWithProducts()
     cookies()
-    const handleDate = (order: Order) => {
+    const handleDate = (order: Order) => { // Works only for MySQL CURRENT_TIMESTAMP
         const date = order.createdAt.toString().split('T')[0].replace(/-/g, '.')
         return <p>Order date: <span>{date}</span></p>
     }
 
-    const handleTime = (order: Order) => {
+    const handleTime = (order: Order) => { // Works only for MySQL CURRENT_TIMESTAMP
         const time = order.createdAt.toString().split('T')[1].slice(0, -5)
         return <p>Order time: <span>{time}</span></p>
     }

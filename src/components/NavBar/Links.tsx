@@ -51,7 +51,7 @@ export function Links() {
     }, [])
 
     const handleUserName = (name: string) => {
-        return name.length > 10 ? name.substring(0, 7) + '...' : name
+        return name?.length > 10 ? name.substring(0, 7) + '...' : name
     }
 
     return <>

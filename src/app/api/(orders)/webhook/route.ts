@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
             req.headers.get("stripe-signature")!,
             process.env.STRIPE_WEBHOOK_SECRET!
         )
-        
+
         if(event.type === 'checkout.session.completed') {
             const metadata = event.data.object.metadata
             if(!metadata) return NextResponse.json({ message: "No metadata provided" }, { status: 500 })

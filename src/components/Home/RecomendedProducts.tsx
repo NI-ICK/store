@@ -59,8 +59,8 @@ export function RecomendedProducts({ products }: { products: Product[] }) {
                 ))}
             </div>
             {products.length - 1 > numberOfElements && <div className={styles.buttons}>
-                <span tabIndex={0} onClick={() => handlePrev()} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><ArrowIcon rotate={90}/></span>
-                <span tabIndex={0} onClick={() => handleNext()} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><ArrowIcon rotate={-90}/></span>
+                <span role='button' tabIndex={0} onClick={() => handlePrev()} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><ArrowIcon rotate={90}/></span>
+                <span role='button' tabIndex={0} onClick={() => handleNext()} onKeyDown={(e) => { if(e.key === "Enter") (e.target as HTMLDivElement).click() }}><ArrowIcon rotate={-90}/></span>
             </div>}
         </div>
     </>
