@@ -34,7 +34,7 @@ vi.mock("@/utils/fetchData", () => ({
 
 describe("Products", () => {
     const renderComponent = async () => {
-        render(await Products({ searchParams: { q: "1" } }))
+        render(await Products({ searchParams: Promise.resolve({ q: "1" }) }))
 
         return {
 

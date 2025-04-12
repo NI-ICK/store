@@ -14,7 +14,7 @@ describe("OrderPage", () => {
     it("should render order", async () => {
         vi.mocked(fetchSingleOrder).mockResolvedValue(testOrders[0])
         vi.mocked(fetchSingleProduct).mockResolvedValue(testProducts[0])
-        render(await OrderPage({ params: { id: '123' }}))
+        render(await OrderPage({ params: Promise.resolve({ id: '123' })}))
 
         expect(screen.getByText('Pending')).toBeInTheDocument()
     })

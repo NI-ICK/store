@@ -249,7 +249,7 @@ vi.mock("@/utils/fetchData", () => ({
 
 describe("Product", () => {
     const renderComponent = async () => {
-        render(await Product({ params: { id: 2 } }))
+        render(await Product({ params: Promise.resolve({ id: 2 }) }))
 
         return {
 

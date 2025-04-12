@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { MoreProducts } from './_components/MoreProducts'
 import { notFound } from 'next/navigation'
 
-export default async function Product(props: { params: { id: number }}) {
+export default async function Product(props: { params: Promise<{ id: number }>}) {
     const params = await props.params
 
     const product: Product | undefined = await fetchSingleProduct(params.id)

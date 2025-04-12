@@ -19,7 +19,7 @@ const fetchSingleOrderWithProducts = async (id: string): Promise<Order | null> =
     return { ...response, orderItems: orderItemsWithProducts}
 }
 
-export default async function OrderPage(props: { params: { id: string }}) {
+export default async function OrderPage(props: { params: Promise<{ id: string }>}) {
     const params = await props.params
     const order: Order | null = await fetchSingleOrderWithProducts(params.id)
     if(!order) notFound()

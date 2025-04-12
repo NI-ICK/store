@@ -19,7 +19,7 @@ vi.mock('next/link', () => ({
 describe("ProductPage", () => {
     const renderComponent = async () => {
         vi.mocked(fetchAllProductsByPage).mockResolvedValue({ products: testProducts, total: 7 })
-        render(await ProductPage({ searchParams: { p: '1' }}))
+        render(await ProductPage({ searchParams: Promise.resolve({ p: '1' })}))
 
         return {
 

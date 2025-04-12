@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { MobileDetails } from './_components/MobileDetails'
 
-export default async function ProductPage(props: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export default async function ProductPage(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const searchParams = await props.searchParams
     const currentPage = parseInt(searchParams.p as string) || 1
     let numberOfPages = 0
